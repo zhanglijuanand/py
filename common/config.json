@@ -1,0 +1,9 @@
+{
+    "APP":{"appip":"192.168.23.231"},
+    "BROWER":[
+                {"detailType":"chrome","ip":"172.16.10.21","port":5555,"type":"chrome"},
+                {"detailType":"ie9","ip":"172.16.10.21","port":7777,"type":"internet explorer"}
+                              
+            ]
+}
+
