@@ -86,15 +86,14 @@ class testLogin(object):
                     flag = False
                     
             except Exception as e: 
-                self.log.print_detail("login type error",e)
+                print ("User login fail: ") + str(e)
+                #self.log.print_detail("login type error",e)
 
-        
-    
     #登陆测试
     def login(self):
         self.log.log_start("login")
         u'''可以循环设定数据测试系统登录'''
-        sheets_name = ['default','radius']#'default','ad','pwd_ad','radius'
+        sheets_name = ['default','ad','pwd_ad','radius']#'default','ad','pwd_ad','radius'
         for sheetname in sheets_name:
             self.login_type(sheetname)
         self.log.log_end("login")

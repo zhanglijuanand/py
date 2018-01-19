@@ -1,3 +1,4 @@
+
 #include <WinAPIFiles.au3>
 
 ;从cmd命令行传参 $CmdLine[1] 代表命令行输入的第一个内容
@@ -19,10 +20,19 @@ Func wait_windows_active($iconType)
 		$hWnd = WinWait("[CLASS:VanDyke Software - SecureCRT]", "", 10)
 		WinActivate($hWnd)
 	ElseIf $iconType == "mstsc" or $iconType == "oracle10g" or $iconType == "B/S" or $iconType == "mysql" Then
+		Sleep(6000)
 		$hWnd = WinWait("远程桌面连接", "", 10)
 		WinActivate($hWnd)
 		Sleep(3000)
-		ControlClick($hWnd, "", "Button13")
+		ControlClick($hWnd, "", "Button5")
+		If WinExists("远程桌面连接") Then
+			Sleep(3000)
+			ControlClick($hWnd, "", "Button11")
+			If WinExists("远程桌面连接") Then
+				Sleep(3000)
+				ControlClick($hWnd, "", "Button2")
+			EndIf
+		EndIf
 	ElseIf $iconType == "sftp" Then
 		$hWnd = WinWait("[CLASS:SunAwtFrame]", "", 10)
 		WinActivate($hWnd)
@@ -64,7 +74,7 @@ EndFunc
 ;执行输入的命令
 Func excute_cmd($cmdList)
 	$recmdList = StringSplit($cmdList,",", $STR_NOCOUNT  )
-	Sleep(1000)
+	Sleep(3000)
 	For $cmdStr in $recmdList
 		;writeTmpTxt($cmdStr)
 		Send($cmdStr)

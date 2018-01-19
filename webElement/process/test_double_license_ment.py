@@ -118,7 +118,7 @@ class Dobapproval(object):
 		# newbrowser = webdriver.Chrome()
 		#IE窗口最大化
 		newbrowser.maximize_window()
-		newbrowser.get("https://172.16.10.169")
+		newbrowser.get("https://172.16.10.155")
 		newbrowser.get("javascript:document.getElementById('overridelink').click();")
 		return newbrowser
 

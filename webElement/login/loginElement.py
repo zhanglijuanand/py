@@ -139,6 +139,7 @@ class loginPage(object):
     u'''点击登录按钮'''
     def click_login_button(self):
         try:
+            time.sleep(1)
             self.getElem.find_element_wait_and_click_EC('tagname','body')
             self.getElem.find_element_with_wait_clickable_and_click('id',self.LOGIN_BUTTON)
 

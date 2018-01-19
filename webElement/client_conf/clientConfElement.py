@@ -96,6 +96,7 @@ class ClientPage():
                 var_id = elemid[:-1] + str(end)
     
                 if resType == elemtext:
+                    time.sleep(1)
                     self.getElem.find_element_wait_and_click_EC('id',var_id)
                     break
     
@@ -226,6 +227,7 @@ class ClientPage():
         try:
             row = self.get_row_by_account(clientName)
             index_xpath = "//table[@id='listTable']/tbody/tr[" + str(row) + "]/td[5]/input[@class='cz_btn'][" + reindex + "]"
+            time.sleep(1)
             edit_elem = self.getElem.find_element_with_wait_EC('xpath',index_xpath)
             edit_elem.click()
         except Exception as e:

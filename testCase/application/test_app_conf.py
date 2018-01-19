@@ -262,7 +262,7 @@ class testApp():
 		self.log.log_start("Editaccount")
 		#获取编辑账号的数据
 		client_data = self.get_table_data("edit_account")
-		self.appElem.app_module_button()
+		#self.appElem.app_module_button()
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
 		for dataRow in range(len(client_data)):
@@ -271,7 +271,7 @@ class testApp():
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0 :
 					self.frameElem.from_frame_to_otherFrame("rigthFrame")
-					self.appElem.operate_account_manage(data[2])
+					#self.appElem.operate_account_manage(data[2])
 					self.appElem.operate_account_edit(data[3])
 					self.appElem.set_account(data[4])
 					if data[5] != "":
@@ -295,7 +295,7 @@ class testApp():
 		self.log.log_start("Delaccount")
 		#获取删除账号的数据
 		client_data = self.get_table_data("del_account")
-		self.appElem.app_module_button()
+		#self.appElem.app_module_button()
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
 		for dataRow in range(len(client_data)):
@@ -304,7 +304,7 @@ class testApp():
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0 :
 					self.frameElem.from_frame_to_otherFrame("rigthFrame")
-					self.appElem.operate_account_manage(data[2])
+					#self.appElem.operate_account_manage(data[2])
 					self.appElem.operate_account_del(data[3])
 					self.cmf.click_login_msg_button()
 					#判断测试项是否通过

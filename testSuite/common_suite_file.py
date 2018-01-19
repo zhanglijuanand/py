@@ -42,6 +42,9 @@ sys.path.append("/testIsomp/webElement/client_conf")
 from clientConfElement import ClientPage
 sys.path.append("/testIsomp/webElement/rule")
 from test_command_rule_ment import CommandRule
+sys.path.append("/testIsomp/webElement/ass_service")
+from ntpElement import NtpService
+
 
 #导入应用发布
 sys.path.append("/testIsomp/webElement/application")
@@ -50,6 +53,8 @@ sys.path.append("/testIsomp/webElement/authorization")
 from authrizationElement import AuthorizationPage
 sys.path.append("/testIsomp/testCase/authorization/")
 from test_authorization import testAuthorization
+sys.path.append("/testIsomp/webElement/mount")
+from test_mount_ment import MountPage
 
 class setDriver():
    
@@ -101,6 +106,8 @@ class CommonSuiteData():
         self.testAutho = testAuthorization(self.driver)
         self.clientElem = ClientPage(self.driver)
         self.command = CommandRule(self.driver)
+        self.mount = MountPage(self.driver)
+        self.ntp = NtpService(self.driver)
 
     u'''切换模块
             parameter:
@@ -120,6 +127,7 @@ class CommonSuiteData():
     def set_role_basic_info(self,list):
 #        self.cmf.select_menu(u'角色管理',u'角色定义')
         self.switch_to_moudle(u'角色管理',u'角色定义')
+        time.sleep(1)
         self.roleElem.add()
         self.roleElem.edit_rolename(list[0])
         self.roleElem.edit_shortname(list[1])
@@ -412,6 +420,7 @@ class CommonSuiteData():
     def set_res_account(self,data):
         self.switch_to_moudle(u"运维管理",u"资源")
         self.account.click_account_manage_button(data[0])
+        time.sleep(1)
         self.account.click_account_add_edit_button(data[2])
         self.account.select_edit_way(data[1])
         if data[2] != "no":
@@ -911,6 +920,18 @@ class CommonSuiteData():
     def client_module_post_condition(self):
         self.auth_method_post_condition()
 
+#-----------------------------AD域抽取前置条件------------------------------
+    def ad_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        self.user_quit()
+        self.login_and_switch_to_sys()
+        self.switch_to_moudle(u"系统配置", u"AD定时抽取")
+    
+    def ad_module_post_condition(self):
+        self.auth_method_post_condition()
+
+
 #-------------------------------应用发布后置条件-------------------------------
     def application_module_prefix_condition(self):
         self.module_common_prefix_condition()
@@ -1018,12 +1039,12 @@ class CommonSuiteData():
     u'''数据库单点登录后置条件'''
     def database_sso_post_condition(self):
         self.user_quit()
-        self.login_and_switch_to_sys()
-        self.del_application()
-        self.sys_switch_to_dep()
+        #self.login_and_switch_to_sys()
+        self.login_and_switch_to_dep()
         self.del_authorization()
         self.del_resource()
         self.dep_switch_to_sys()
+        self.del_application()
         self.del_client_module([1,2])
         self.auth_method_post_condition()
 
@@ -1205,6 +1226,105 @@ class CommonSuiteData():
         self.dep_switch_to_sys()
         self.module_common_post_condition()
 
+#------------------------------地址规则前置条件-----------------------------------
+    def addressrule_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #添加用户
+        self.add_user_data_module([3,5,14,15,16,17,18,19])
+        #退出
+        self.user_quit()
+        #使用添加的用户登录并切换至部门级角色
+        self.login_and_switch_to_dep()
+        #切换到规则定义
+        self.switch_to_moudle(u'运维管理', u'规则定义')
+        self.command.click_left_rule(2)
+
+    def addressrule_module_post_condition(self):
+        #切换至系统级角色
+        self.dep_switch_to_sys()
+        self.module_common_post_condition()
+
+#------------------------------资源时间规则前置条件-----------------------------------
+    def retimerule_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #退出
+        self.user_quit()
+        #使用添加的用户登录并切换至部门级角色
+        self.login_and_switch_to_dep()
+        #切换到资源
+        self.switch_to_moudle(u"运维管理", u"资源")
+        #添加资源
+        self.add_resource_modele([3, 5, 10])
+        #添加资源账号
+        self.add_res_account_module([4, 6, 14])
+        #切换到授权
+        self.switch_to_moudle(u'运维管理', u'授权')
+        self.add_authorization_module([1])
+        #切换到规则定义
+        self.switch_to_moudle(u'运维管理', u'规则定义')
+        self.command.click_left_rule(3)
+
+    def retimerule_module_post_condition(self):
+        #删除授权
+        self.del_authorization()
+        #删除资源
+        self.del_resource()
+        #切换至系统级角色
+        self.dep_switch_to_sys()
+        self.module_common_post_condition()
+
+#------------------------------NTP服务前置条件---------------------------------
+    def ntp_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #添加用户
+        self.add_user_data_module([0])
+        #退出
+        self.user_quit()
+        time.sleep(1)
+        #使用添加的用户登录并切换至系统级角色
+        self.login_and_switch_to_sys()
+        #切换到NTP服务
+        self.switch_to_moudle(u'系统配置', u'关联服务')
+        self.ntp.click_left_moudle(0)
+        
+    def ntp_module_post_condition(self):
+        #切换至系统级角色
+        #self.dep_switch_to_sys()
+        self.module_common_post_condition()
+        
+#------------------------------会话配置前置条件--------------------------------
+    def session_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        #添加系统级和部门级角色的用户
+        self.add_user_with_role()
+        #添加用户
+        self.add_user_data_module([0])
+        #用户退出
+        self.user_quit()
+        #使用新用户登录并切换到系统级
+        self.login_and_switch_to_sys()
+        self.switch_to_moudle(u"策略配置", u"会话配置")
+
+    def session_module_post_condition(self):
+        self.module_common_post_condition()
+
+#------------------------------审计存储扩展前置条件-----------------------------------
+    def audit_mount_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #退出
+        self.user_quit()
+        #使用添加的用户登录并切换至系统级角色
+        self.login_and_switch_to_sys()
+        #切换到维护配置
+        self.switch_to_moudle(u'系统配置', u'维护配置')
+        self.mount.click_right_button('1')
+
+    def audit_mount_module_post_condition(self):
+        self.module_common_post_condition()
 
 
 

@@ -34,7 +34,6 @@ class getElement(object):
         self.driver = driver
         self.log = log()
     
-    
     u'''等待元素出现后再定位元素
         parameter:
             - type:定位的类型，如id,name,tag name,class name,css,xpath等

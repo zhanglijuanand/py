@@ -71,6 +71,15 @@ class WindowsResource(object):
 			if data[9] == 'no':
 				self.resource.click_account_sync()
 			self.resource.set_admin_account(data[12])
+		#管理员帐号
+		if data[16] != 'no':
+			self.resource.click_account_sync()
+			self.select_account_protocol(data[16])
+			self.set_port(data[17])
+			if data[16] == "Ldap":
+				self.set_ldap_account(data[18])
+			else:
+				self.set_ssh_account(data[18])
 		#管理员口令
 		if data[13] != 'no':
 			self.resource.set_admin_pwd(data[13])
@@ -80,9 +89,6 @@ class WindowsResource(object):
 		#BaseDN
 		if data[15] != 'no':
 			self.set_base_dn(data[15])
-		#LDAP连接端口
-		if data[16] != 'no':
-			self.set_ldap_name(data[16])
 		self.resource.click_save_button()
 
 	u'''校验windows资源
@@ -175,15 +181,62 @@ class WindowsResource(object):
 		except Exception as e:
 			print "fortBaseDn is error :" + str(e)
 
-	u'''填写LDAP连接端口
+	u'''填写连接端口
 	   parameter:
-	       - ldapname:LDAP连接端口名称
+	       - portname:连接端口名称
 	'''
-	def set_ldap_name(self, ldapname):
+	def set_port(self, portname):
 		try:
-			ldap = self.cnEn.is_float(ldapname)
+			port = self.cnEn.is_float(portname)
 			self.frameElem.from_frame_to_otherFrame("mainFrame")
 			self.getElem.find_element_wait_and_clear('id', "fortConnectionPort")
-			self.getElem.find_element_wait_and_sendkeys('id', "fortConnectionPort", ldap)
+			self.getElem.find_element_wait_and_sendkeys('id', "fortConnectionPort", port)
 		except Exception as e:
-			print "LDAP is error :" + str(e)
+			print "port is error :" + str(e)
+
+	u'''填写ldap账号
+	   parameter:
+	       - actname:管理员账号
+	'''
+	def set_ldap_account(self, actname):
+		try:
+			act = self.cnEn.is_float(actname)
+			self.frameElem.from_frame_to_otherFrame("mainFrame")
+			self.getElem.find_element_wait_and_clear('id', "fortAdminAccount_ldap")
+			self.getElem.find_element_wait_and_sendkeys('id', "fortAdminAccount_ldap", act)
+		except Exception as e:
+			print "name is error :" + str(e)
+
+	u'''填写ssh账号
+	   parameter:
+	       - actname:管理员账号
+	'''
+	def set_ssh_account(self, actname):
+		try:
+			act = self.cnEn.is_float(actname)
+			self.frameElem.from_frame_to_otherFrame("mainFrame")
+			self.getElem.find_element_wait_and_clear('id', "fortAdminAccount_ssh")
+			self.getElem.find_element_wait_and_sendkeys('id', "fortAdminAccount_ssh", act)
+		except Exception as e:
+			print "name is error :" + str(e)
+
+	u'''选择账号同步连接协议
+	   parameter:
+	       - proname:同步
+	'''
+	def select_account_protocol(self, proname):
+		try:
+			pro = self.cnEn.is_float(proname)
+			self.frameElem.from_frame_to_otherFrame("mainFrame")
+			selem = self.getElem.find_element_with_wait_EC('id', "fortConnectionProtocol")
+			self.selectElem.select_element_by_visible_text(selem, pro)
+		except Exception as e:
+			print " protocol is error :" + str(e)
+
+	u'''是否勾选获取所有账号'''
+	def check_all_account(self):
+		try:
+			self.frameElem.from_frame_to_otherFrame("mainFrame")
+			self.getElem.find_element_wait_and_click_EC('id', "get_all_accounts")
+		except Exception as e:
+			print " Check failure :" + str(e)

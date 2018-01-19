@@ -136,7 +136,7 @@ class Resource(object):
 			self.getElem.find_element_with_wait_EC("classname", "ip_succ")
 			time.sleep(3)
 		except Exception as e:
-			print "resourcename is error :" + str(e)
+			print "resourceip is error :" + str(e)
 
 	u'''填写归属部门
 	   parameter:
@@ -338,6 +338,19 @@ class Resource(object):
 			self.frameElem.from_frame_to_otherFrame("mainFrame")
 			self.getElem.find_element_wait_and_clear('id', "fortUpSuperPasswordPrompt")
 			self.getElem.find_element_wait_and_sendkeys('id', "fortUpSuperPasswordPrompt", "assword:")
+		except Exception as e:
+			print "confirm Password is error :" + str(e)
+
+	u'''填写描述信息
+	   parameter:
+	       - description:信息内容
+	'''
+	def set_description(self, description):
+		try:
+			descri = self.cnEn.is_float(description)
+			self.frameElem.from_frame_to_otherFrame("mainFrame")
+			self.getElem.find_element_wait_and_clear('id', "fortDescription")
+			self.getElem.find_element_wait_and_sendkeys('id', "fortDescription", descri)
 		except Exception as e:
 			print "confirm Password is error :" + str(e)
 

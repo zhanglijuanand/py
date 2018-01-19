@@ -36,9 +36,6 @@ class testWindowsResourceSuite(unittest.TestCase):
 		self.windows = testWindowsResource(self.browser)
 		self.account = testResourceAccount(self.browser)
 
-		# self.comsuit.login_and_switch_to_dep()
-		# self.comsuit.switch_to_moudle(u"运维管理", u"资源")
-
 		#资源前置条件
 		self.comsuit.resource_module_prefix_condition()
 
