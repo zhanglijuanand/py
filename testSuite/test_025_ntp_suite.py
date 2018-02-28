@@ -45,11 +45,12 @@ class TestNtpSuite(unittest.TestCase):
     def test_ntp(self):
         #编辑服务器IP与周期
         self.service.edit_ntp_001()
-        #更新系统时间
-        self.service.update_ntp_002()
         #校验服务器IP与周期
-        self.service.check_ntp_003()        
+        self.service.check_ntp_002()        
+        #更新系统时间
+        self.service.update_ntp_003()        
         
+    def tearDown(self):
         #后置条件
         self.commonSuite.ntp_module_post_condition()
         #关闭浏览器

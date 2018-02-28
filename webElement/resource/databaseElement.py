@@ -139,7 +139,7 @@ class DatabaseResource(object):
 		ip.send_keys(reIp)
 		self.getElem.find_element_wait_and_click_EC("id", "spanid")
 		self.getElem.find_element_with_wait_EC("classname", "ip_succ")
-		time.sleep(2)
+		time.sleep(3)
 		#self.driver.implicitly_wait(5)
 		
 	u'''填写database库名

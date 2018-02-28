@@ -124,7 +124,7 @@ class NtpService:
   
     u'''填写周期时间
         parameters:
-            serverIp : 周期时间
+            timeDay : 周期时间
     '''      
     def set_cycle_time(self,timeDay):
         return self.set_common_func(timeDay,self.CYCLETIME)

@@ -57,6 +57,18 @@ SSO_TEST_DATA_URL = r"/testIsomp/testData/sso_test_data.xlsx"
 #AD域抽取数据文件
 AD_EXTRACT_DATA_URL = r"/testIsomp/testData/ad_extract_data.xlsx"
 
+#配置报表数据文件
+CONF_REPORT_DATA_URL = r"/testIsomp/testData/conf_audit_report.xlsx"
+
+#运维报表数据文件
+OPT_REPORT_DATA_URL = r"/testIsomp/testData/operation_audit_report.xlsx"
+
+#运维审计数据文件
+AUDIT_LOG_DATA_URL = r"/testIsomp/testData/audit_log.xlsx"
+
+#配置审计数据文件
+SYSTEM_LOG_DATA_URL = r"/testIsomp/testData/system_log.xlsx"
+
 #会话配置数据文件
 SESSION_CONFIGURATION_DATA_URL = r"/testIsomp/testData/session_configuration_test_data.xlsx"
 
@@ -101,7 +113,31 @@ RETIME_RULE_TEST_DATA_URL = r"/testIsomp/testData/resource_time_rule_test_data.x
 
 #审计存储扩展数据文件
 AUDIT_MOUNT_TEST_DATE = r"/testIsomp/testData/audit_mount_test_data.xlsx"
+#密码策略数据文件
+PASSWORD_STRATRGY_TEST_DATA_URL = r"/testIsomp/testData/password_strategy_test_data.xlsx"
 
+#告警策略数据文件
+ALARM_STRATEGE_TEST_DATA_URL = r"/testIsomp/testData/alarm_strategy_test_data.xlsx"
+
+#syslog服务数据文件
+SYSLOG_TEST_DATA_URL = r"/testIsomp/testData/syslog_test_data.xlsx"
+
+#网卡配置数据文件
+NETWORK_TEST_DATA_URL = r"/testIsomp/testData/network_test_data.xlsx"
+
+#路由配置数据文件
+ROUTING_TEST_DATA_URL = r"/testIsomp/testData/routing_test_data.xlsx"
+
+#邮件配置数据文件
+MAIL_TEST_DATE = r"/testIsomp/testData/mail_test_data.xlsx"
+#备份还原数据文件
+BACKUP_RESTORE_TEST_DATE = r"/testIsomp/testData/backup_restore_test_data.xlsx"
+
+#使用授权数据文件
+USE_AUTH_TEST_DATE = r"/testIsomp/testData/use_of_authorization.xlsx"
+
+#密码信封数据文件
+PASSWD_ENVELOPE_TEST_DATA_URL = r"/testIsomp/testData/passwd_envelope_test_data.xlsx"
 class dataFileName(object):
     #获取通用excel中的数据
     def get_common_suite_test_data_url(self):
@@ -142,6 +178,22 @@ class dataFileName(object):
     #AD域抽取数据
     def get_ad_extract_test_url(self):
         return AD_EXTRACT_DATA_URL
+    
+    #配置审计报表数据
+    def get_conf_report_test_url(self):
+        return CONF_REPORT_DATA_URL
+    
+    #运维审计报表数据
+    def get_opt_report_test_url(self):
+        return OPT_REPORT_DATA_URL
+    
+    #配置审计检索数据
+    def get_system_log_test_url(self):
+        return SYSTEM_LOG_DATA_URL
+    
+    #运维审计检索数据
+    def get_audit_log_test_url(self):
+        return AUDIT_LOG_DATA_URL   
     
     #获取unix资源excel中数据
     def get_unix_test_data_url(self):
@@ -223,21 +275,56 @@ class dataFileName(object):
     u"""获取资源时间规则数据"""
     def get_retime_test_data_url(self):
         return RETIME_RULE_TEST_DATA_URL
+    
+    #获取NTP服务数据
+    def get_ntp_test_data_url(self):
+        return EDIT_NTP_TEST_DATA_URL
 
     u'''获取审计存储扩展数据'''
     def audit_mount_test_date_url(self):
         return AUDIT_MOUNT_TEST_DATE
+    
+    u"""获取syslog服务数据"""
+    def get_syslog_test_data_url(self):
+        return SYSLOG_TEST_DATA_URL
 
+    u'''获取邮件数据'''
+    def mail_test_date_url(self):
+        return MAIL_TEST_DATE
+    
+    u'''获取备份还原数据'''
+    def back_restore_test_date_url(self):
+        return BACKUP_RESTORE_TEST_DATE
+
+    u'''获取网卡配置数据'''
+    def get_network_test_data_url(self):
+        return NETWORK_TEST_DATA_URL
+    
+    u'''获取路由配置数据'''
+    def get_routing_test_data_url(self):
+        return ROUTING_TEST_DATA_URL
+    
+    u"""获取密码策略数据"""
+    def get_password_stratrgy_test_data_url(self):
+        return PASSWORD_STRATRGY_TEST_DATA_URL
+    
+    u"""获取告警策略数据"""
+    def alarm_stratrgy_test_data_url(self):
+        return ALARM_STRATEGE_TEST_DATA_URL
+    
+    u"""获取使用授权数据"""
+    def use_auth_test_data_url(self):
+        return USE_AUTH_TEST_DATE
+
+    u'''获取密码信封数据'''
+    def passwd_envelope_test_data_url(self):
+        return PASSWD_ENVELOPE_TEST_DATA_URL
     #从sheet名称获取登陆数据
     def get_data(self,dataPath,sheetName):
         #获取excel数据
         data = excelRead().get_excel_data(dataPath,sheetName)
         
         return data
-    
-    #获取NTP服务数据
-    def get_ntp_test_data_url(self):
-        return EDIT_NTP_TEST_DATA_URL
     
 #dataFile = dataFileName()
 #login_data = dataFileName().get_data(dataFileName().get_sso_test_url(),'sso')

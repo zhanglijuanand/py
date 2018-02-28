@@ -44,7 +44,17 @@ sys.path.append("/testIsomp/webElement/rule")
 from test_command_rule_ment import CommandRule
 sys.path.append("/testIsomp/webElement/ass_service")
 from ntpElement import NtpService
+sys.path.append("/testIsomp/webElement/mail")
+from test_mail_ment import MailPage
 
+sys.path.append("/testIsomp/webElement/passwd_envelope")
+from test_passwd_envelope_ment import EnvelopePage
+
+sys.path.append("/testIsomp/webElement/sso")
+from ssoElement import SsoPage
+#导入告警配置
+sys.path.append("/testIsomp/webElement/alarm_configuration")
+from alarmElement import AlarmPage
 
 #导入应用发布
 sys.path.append("/testIsomp/webElement/application")
@@ -55,6 +65,8 @@ sys.path.append("/testIsomp/testCase/authorization/")
 from test_authorization import testAuthorization
 sys.path.append("/testIsomp/webElement/mount")
 from test_mount_ment import MountPage
+sys.path.append("/testIsomp/webElement/ass_service/")
+from syslogElement import Syslog
 
 class setDriver():
    
@@ -108,6 +120,11 @@ class CommonSuiteData():
         self.command = CommandRule(self.driver)
         self.mount = MountPage(self.driver)
         self.ntp = NtpService(self.driver)
+        self.mail = MailPage(self.driver)
+        self.syslog = Syslog(driver)
+        self.ssoElem = SsoPage(self.driver)
+        self.alarm = AlarmPage(self.driver)
+        self.passwdenvelope = EnvelopePage(self.driver)
 
     u'''切换模块
             parameter:
@@ -185,6 +202,8 @@ class CommonSuiteData():
         self.userElem.set_user_pwd(data[4])
         self.userElem.set_user_enquire_pwd(data[5])
         self.userElem.set_start_time(data[6])
+        if data[12] != "":
+            self.userElem.set_user_email(data[12])
         if data[10] != "":
             self.userElem.set_dep(data[10])
         if data[7] !="":
@@ -564,7 +583,7 @@ class CommonSuiteData():
     u'''添加用户数据模板'''
     def add_user_data_module(self,rowList):
         self.switch_to_moudle(u"运维管理",u"用户")
-        user_data = self.get_table_data("common_user")
+        user_data = self.get_table_data("add_user")
         for dataRow in rowList:
             data = user_data[dataRow]
             if dataRow != 0:
@@ -581,7 +600,7 @@ class CommonSuiteData():
                 login_status ：'no'(登录状态：没有登录)
     '''
     def login_and_switch_to_common(self,login_status='no'):
-        login_data = self.get_table_data("common_user")
+        login_data = self.get_table_data("add_user")
         logindata = login_data[1]
         if login_status == 'no':
             self.loginElem.login(logindata)
@@ -616,14 +635,14 @@ class CommonSuiteData():
     
     #使用新添加的用户登录
     def use_new_user_login(self):
-        login_data = self.get_table_data("common_user")
+        login_data = self.get_table_data("add_user")
         logindata = login_data[1]
         time.sleep(2)
         self.loginElem.login(logindata)
     
     u'''运维管理员登录'''
     def sso_user_login(self,rowList):
-        login_data = self.get_table_data("common_user")
+        login_data = self.get_table_data("add_user")
         logindata = login_data[rowList]
         time.sleep(1)
         self.loginElem.login(logindata)
@@ -786,6 +805,20 @@ class CommonSuiteData():
         #rowList = [1,2,3,4,5,6,7]
         self.add_authorization_module(rowList)
     
+    u'''单点登录模板'''
+    def sso_module(self,rowList):
+        sso_data = self.get_table_data("sso")
+        for dataRow in rowList:
+            data = sso_data[dataRow]
+            if dataRow != 0:
+                self.frameElem.from_frame_to_otherFrame("rigthFrame")
+                self.ssoElem.select_account(data[0],data[1])
+                self.ssoElem.select_sso_icon(data[0],data[2])
+                if data[3] != "":
+                    self.ssoElem.select_protocol(data[3])
+                #self.ssoElem.execute_chrome_key()
+                self.ssoElem.choice_browser(data[2],data[4],data[5],data[6])               
+    
     u'''添加客户端数据模板'''
     def add_client_module(self,rowList):
         client_data = self.get_table_data("add_client")
@@ -811,6 +844,20 @@ class CommonSuiteData():
             data = database_data[dataRow]
             if dataRow != 0:
                 self.set_database_res_info(data)
+
+    u'''删除用户数据模板'''
+    def del_user_data_module(self,rowList):
+        self.switch_to_moudle(u"运维管理",u"用户")
+        self.frameElem.from_frame_to_otherFrame("mainFrame")
+        user_data = self.get_table_data("add_user")
+        for dataRow in rowList:
+            data = user_data[dataRow]
+            if dataRow != 0:
+                self.switch_to_moudle(u"运维管理",u"用户")
+                self.userElem.operate_delete(data[1])
+                self.frameElem.switch_to_content()
+                self.cmf.click_login_msg_button()
+                self.cmf.click_login_msg_button()
 
 #-------------------------------前置条件---------------------------------------
     u'''前置条件通用'''
@@ -872,6 +919,8 @@ class CommonSuiteData():
         self.login_and_switch_to_sys()
         #配置认证方式
         self.add_meth_method()
+        self.user_quit()
+        self.login_and_switch_to_sys()
         #配置最大登录数
         self.set_login_max_num()
         #添加登录用户数据
@@ -908,7 +957,41 @@ class CommonSuiteData():
         self.del_res_group()
         self.del_user_group()
         self.auth_method_post_condition()
-    
+
+#-----------------------------配置报表前置条件---------------------------------
+    def conf_report_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        self.user_quit()
+        self.login_and_switch_to_dep()
+        self.add_user_data_module([9])
+        self.add_user_group()
+        self.user_quit()
+        self.login_and_switch_to_sys()
+        self.switch_to_moudle(u"报表管理", u"审计报表")
+        
+    def conf_report_module_post_condition(self):
+        self.sys_switch_to_dep()
+        self.del_user_group()
+        self.auth_method_post_condition()
+#-----------------------------行为报表前置条件---------------------------------
+    def opt_report_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        self.user_quit()
+        self.login_and_switch_to_dep()
+        self.add_user_data_module([9])
+        self.add_resource_modele([7])
+        self.add_res_group()
+        self.add_user_group()
+        self.user_quit()
+        self.login_and_switch_to_sys()
+        self.switch_to_moudle(u"报表管理", u"审计报表")
+        
+    def opt_report_module_post_condition(self):
+        self.sys_switch_to_dep()
+        self.authori_module_post_condition()
+
 #-----------------------------客户端配置前置条件------------------------------
     def client_module_prefix_condition(self):
         self.module_common_prefix_condition()
@@ -930,7 +1013,52 @@ class CommonSuiteData():
     
     def ad_module_post_condition(self):
         self.auth_method_post_condition()
+    
+#-----------------------------配置审计前置条件------------------------------
+    def system_log_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        self.user_quit()
+        self.login_and_switch_to_sys()
+        self.switch_to_moudle(u"系统配置", u"关联服务")
+        self.ntp.click_left_moudle(1)
+        #填写syslog信息
+        self.frameElem.from_frame_to_otherFrame("rigthFrame")
+        self.syslog.set_ip("172.16.10.11")
+        self.syslog.set_ident("aa")
+        self.syslog.save_button()
+        self.cmf.click_login_msg_button()
+        self.switch_to_moudle(u"审计管理", u"配置审计")
+    
+    def system_log_post_condition(self):
+        self.auth_method_post_condition()
 
+#-----------------------------运维审计前置条件------------------------------
+    def audit_log_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        self.user_quit()
+        self.login_and_switch_to_dep()
+        self.add_user_data_module([9])
+        self.add_resource_modele([1])
+        self.add_res_account_module([1])
+        self.add_authrization([3])
+        self.switch_to_operation()
+        self.sso_module([1])
+        self.user_quit()
+        #新添加的运维管理员登录
+        self.sso_user_login(9)
+        self.sso_module([1])
+        #新添加的运维管理员退出
+        self.user_quit()
+        self.login_and_switch_to_sys()
+        self.switch_to_moudle(u"审计管理", u"运维审计")
+    
+    def audit_log_post_condition(self):
+        self.sys_switch_to_dep()
+        self.del_authorization()
+        self.del_resource()
+        self.auth_method_post_condition()
 
 #-------------------------------应用发布后置条件-------------------------------
     def application_module_prefix_condition(self):
@@ -1060,7 +1188,7 @@ class CommonSuiteData():
 
     def role_module_post_condition(self):
         #用初始化用户登录删除用户
-        self.del_user()
+        self.del_user_data_module([2])
         #用户退出
         self.user_quit()
 
@@ -1149,7 +1277,7 @@ class CommonSuiteData():
         self.module_common_prefix_condition()
         self.add_user_with_role()
         #添加用户
-        self.add_user_data_module([2,3,5,11])
+        self.add_user_data_module([2,5,11,12])
         #退出
         self.user_quit()
         #使用添加的用户登录并切换至部门级角色
@@ -1166,7 +1294,7 @@ class CommonSuiteData():
 
     def process_module_post_condition(self):
         #用户登录切换部门角色
-        self.login_and_switch_to_dep()
+        # self.login_and_switch_to_dep()
         #删除授权
         self.del_authorization()
         #删除资源
@@ -1326,7 +1454,161 @@ class CommonSuiteData():
     def audit_mount_module_post_condition(self):
         self.module_common_post_condition()
 
+#------------------------------备份还原前置条件-----------------------------------
+    def backup_restore_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #退出
+        self.user_quit()
+        #使用添加的用户登录并切换至系统级角色
+        self.login_and_switch_to_sys()
 
+    def backup_restore_module_post_condition(self):
+        self.module_common_post_condition()
+        
+#-------------------------------网卡配置前置条件-------------------------------
+    def network_card_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #添加用户
+        self.add_user_data_module([0])
+        #退出
+        self.user_quit()
+        time.sleep(1)
+        #使用添加的用户登录并切换至系统级角色
+        self.login_and_switch_to_sys()
+        #切换到网卡配置
+        self.switch_to_moudle(u'系统配置', u'网络配置')
+        
+    def network_card_module_post_condition(self):
+        self.module_common_post_condition()
+        
+#-------------------------------路由配置前置条件-------------------------------
+    def routing_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #添加用户
+        self.add_user_data_module([0])
+        #退出
+        self.user_quit()
+        #使用添加的用户登录并切换至系统级角色
+        self.login_and_switch_to_sys()
+        #切换到路由配置
+        self.cmf.select_menu(u'系统配置', u'网络配置',u'路由配置')
+        
+    def routing_module_post_condition(self):
+        self.module_common_post_condition()
+        
+#-------------------------------SYSLOG前置条件---------------------------------
+    def syslog_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #添加用户
+        self.add_user_data_module([0])
+        #退出
+        self.user_quit()
+        time.sleep(1)
+        #使用添加的用户登录并切换至系统级角色
+        self.login_and_switch_to_sys()
+        #切换到NTP服务
+        self.switch_to_moudle(u'系统配置', u'关联服务')
+        self.ntp.click_left_moudle(1)
+        
+    def syslog_module_post_condition(self):
+        self.module_common_post_condition()
+
+#------------------------------密码策略前置条件--------------------------------	
+    def pwdstr_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        #添加系统级和部门级角色的用户
+        self.add_user_with_role()
+        #添加用户
+        self.add_user_data_module([2])
+        #用户退出
+        self.user_quit()
+        #使用新用户登录并切换到系统级
+        self.login_and_switch_to_dep()
+        self.switch_to_moudle(u"运维管理", u"资源")
+        self.add_resource_modele([7])
+        #切换到系统级
+        self.dep_switch_to_sys()        
+        self.switch_to_moudle(u"策略配置", u"密码策略")
+
+    def pwdstr_module_post_condition(self):
+        self.sys_switch_to_dep() 
+        self.switch_to_moudle(u"运维管理", u"资源")
+        self.del_resource()
+        self.dep_switch_to_sys()
+        self.module_common_post_condition()
+
+#------------------------------邮件前置条件---------------------------------
+    def mail_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #添加用户
+        self.add_user_data_module([0])
+        #退出
+        self.user_quit()
+        #使用添加的用户登录并切换至系统级角色
+        self.login_and_switch_to_sys()
+        #切换到邮件服务
+        self.switch_to_moudle(u'系统配置', u'关联服务')
+        self.mail.click_left_moudle_test()
+
+    def mail_module_post_condition(self):
+        self.module_common_post_condition()
+        
+#------------------------------告警策略前置条件---------------------------------
+    def alarm_strategy_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #添加用户
+        self.add_user_data_module([0])
+        #退出
+        self.user_quit()
+        #使用添加的用户登录并切换至系统级角色
+        self.login_and_switch_to_sys()
+        #self.switch_to_moudle(u'策略配置', u'告警策略')
+
+
+    def alarm_strategy_module_post_condition(self):
+        self.alarm.del_command_config()
+        self.alarm.del_default_config()
+        self.alarm.del_auth_config()
+        self.alarm.del_ip_config()
+        self.module_common_post_condition()
+
+#------------------------------使用授权前置条件---------------------------------
+    def use_auth_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #添加用户
+        self.add_user_data_module([0])
+        #退出
+        self.user_quit()
+        #使用添加的用户登录并切换至系统级角色
+        self.login_and_switch_to_sys()
+        self.switch_to_moudle(u'系统配置', u'使用授权')
+
+    def alarm_strategy_module_post_condition(self):
+        self.module_common_post_condition()
+
+    #------------------------------密码信封前置条件---------------------------------
+    def passwd_envelope_module_prefix_condition(self):
+        self.module_common_prefix_condition()
+        self.add_user_with_role()
+        #添加用户
+        self.add_user_data_module([0])
+        #退出
+        self.user_quit()
+        #使用添加的用户登录并切换至系统级角色
+        self.login_and_switch_to_sys()
+        #切换到邮件服务
+        self.switch_to_moudle(u'系统配置', u'关联服务')
+        self.passwdenvelope.click_left_moudle_envelope()
+
+    def passwd_envelope_module_post_condition(self):
+        self.module_common_post_condition()
 
 #if __name__ == "__main__":
 #    driver = setDriver().set_local_driver()

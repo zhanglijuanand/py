@@ -42,6 +42,7 @@ class ServiceNtp():
         self.log = log()
         self.ntp = NtpService(driver)
         self.cnEnde = cnEncode()
+        self.comm = CommonSuiteData(driver)
         
     u'''获取测试数据
         Parameters:
@@ -98,44 +99,8 @@ class ServiceNtp():
                 print ("edit ntp fail: ") + str(e)
         self.log.log_end("editNtp")
         
-    u'''更新时间'''
-    def update_ntp_002(self):
-        #日志开始记录
-        self.log.log_start("updateNtp")
-        #获取更新时间的数据
-        ntp_data = self.get_table_data("update_ntp")
-        row_count = len(ntp_data)-1
-        #点击保存按钮弹出框
-        ntp_msg = self.ntp_msg()
-        #无检查点的测试项标识，如果为True说明通过
-        flag = False
-        for dataRow in range(len(ntp_data)):
-            data = ntp_data[dataRow]
-            try:
-                #如果不是第一行标题，则读取数据
-                if dataRow != 0:
-                    self.frameElem.from_frame_to_otherFrame("rigthFrame")
-                    self.ntp.server_ip(data[2])
-                    self.ntp.set_cycle_date(data[3])
-                    self.ntp.set_cycle_time(data[4])
-                    if dataRow == row_count:
-                        #自动与时间同步服务器
-                        self.ntp.check_time_server()                        
-                    self.ntp.save_button()
-                    #点击确定按钮
-                    self.ntp.click_msg_button()
-                    #更新时间
-                    self.ntp.updata_button()
-                    #点击NTP菜单
-                    self.ntp.click_left_moudle(0)
-                    #判断测试项是否通过
-                    self.check_without_pop_up(data)
-            except Exception as e:
-                print ("update ntp fail: ") + str(e)
-        self.log.log_end("updateNtp")
-        
     u'''校验服务器IP与周期'''
-    def check_ntp_003(self):
+    def check_ntp_002(self):
         #日志开始记录
         self.log.log_start("checkNtp")
         #获取校验服务器IP与周期的数据
@@ -161,7 +126,48 @@ class ServiceNtp():
                     flag = False                    
             except Exception as e:
                 print ("check ntp fail:") + str(e)
-        self.log.log_end("checkNtp")
+        self.log.log_end("checkNtp")    
+        
+    u'''更新时间'''
+    def update_ntp_003(self):
+        #日志开始记录
+        self.log.log_start("updateNtp")
+        #获取更新时间的数据
+        ntp_data = self.get_table_data("update_ntp")
+        row_count = len(ntp_data)-1
+        #点击保存按钮弹出框
+        ntp_msg = self.ntp_msg()
+        #无检查点的测试项标识，如果为True说明通过
+        flag = False
+        for dataRow in range(len(ntp_data)):
+            data = ntp_data[dataRow]
+            try:
+                #如果不是第一行标题，则读取数据
+                if dataRow != 0:
+                    self.frameElem.from_frame_to_otherFrame("rigthFrame")
+                    self.ntp.server_ip(data[2])
+                    self.ntp.set_cycle_date(data[3])
+                    self.ntp.set_cycle_time(data[4])
+                    if dataRow == row_count:
+                        #自动与时间同步服务器
+                        self.ntp.check_time_server()                       
+                    self.ntp.save_button()
+                    #点击确定按钮
+                    self.ntp.click_msg_button()
+                    #更新时间
+                    self.ntp.updata_button()
+                    #用户退出
+                    self.comm.user_quit()
+                    #用户登录并切换至系统级角色
+                    self.comm.login_and_switch_to_sys()
+                    self.cmf.select_menu(u"系统配置", u"关联服务")
+                    #判断测试项是否通过
+                    self.check_without_pop_up(data)
+            except Exception as e:
+                print ("update ntp fail: ") + str(e)
+        self.log.log_end("updateNtp")
+        
+
 
         
         
@@ -176,6 +182,7 @@ class ServiceNtp():
 #    
 #    
 #    service.edit_ntp_001()
-#    service.update_ntp_002()
-#    service.check_ntp_003()
+#    service.check_ntp_002()
+#    service.update_ntp_003()
+
 

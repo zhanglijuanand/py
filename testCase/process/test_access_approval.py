@@ -282,5 +282,4 @@ class testAccapproval(object):
 					self.log.log_detail(data[0], True)
 			except Exception as e:
 				print ("access_query_department_history fail: ") + str(e)
-		self.loginElem.quit()
 		self.log.log_end("access_query_department_history")

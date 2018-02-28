@@ -444,7 +444,7 @@ class CommandRule(object):
 		self.frameElem.from_frame_to_otherFrame("rigthFrame")
 		self.ssoElem.select_account(data[2],data[3])
 		self.ssoElem.select_sso_icon(data[2],data[4])
-		time.sleep(2)
+		time.sleep(5)
 		if data[5] != "":
 			self.ssoElem.select_protocol(data[5])
 		time.sleep(2)

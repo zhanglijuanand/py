@@ -201,7 +201,7 @@ class Department(object):
 				#获取title文本
 				messagetext = divselem.get_attribute('textContent')
 				if messagetext == pagetext:
-					time.sleep(2)
+					time.sleep(5)
 					table.find_element_by_class_name("aui_state_highlight").click()
 					step = True
 					break

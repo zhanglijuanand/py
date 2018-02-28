@@ -19,6 +19,12 @@ Func wait_windows_active($iconType)
 	ElseIf $iconType == "secureCRT" Then
 		$hWnd = WinWait("[CLASS:VanDyke Software - SecureCRT]", "", 10)
 		WinActivate($hWnd)
+		If WinExists("New Host Key") Then
+			$hWnd = WinGetHandle("New Host Key")
+			Sleep(1000)
+			ControlClick($hWnd, "", "Button1")
+		EndIf
+
 	ElseIf $iconType == "mstsc" or $iconType == "oracle10g" or $iconType == "B/S" or $iconType == "mysql" Then
 		Sleep(6000)
 		$hWnd = WinWait("远程桌面连接", "", 10)
