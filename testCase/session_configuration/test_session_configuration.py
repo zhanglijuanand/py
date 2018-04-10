@@ -22,6 +22,10 @@ from sessionElement import sessionConfig
 sys.path.append("/testIsomp/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 
+sys.path.append("/testIsomp/webElement/password_strategy/")
+from pwdStrategyElement import PwdStrategy
+
+
 class conversationStrategy():
     def __init__(self,driver):
         self.driver = driver
@@ -34,6 +38,7 @@ class conversationStrategy():
         self.dataFile = dataFileName()
         self.frameElem = frameElement(self.driver)
         self.tableEle = tableElement(self.driver)
+        self.pwdstr = PwdStrategy(self.driver)
     
     u'''获取测试数据
     Parameters:
@@ -66,8 +71,9 @@ class conversationStrategy():
             try:
                 if dataRow != 0:
                     self.frameElem.from_frame_to_otherFrame("mainFrame")
-                    self.session.add_session(data[2])
-                    self.session.add_locking_time(data[3])
+                    self.pwdstr.set_pwd_strategy(data[2])
+                    self.session.add_session(data[3])
+                    self.session.add_locking_time(data[4])
                     self.session.save_global_button()
                     #返回到上一级frme
                     self.frameElem.switch_to_content()
@@ -156,9 +162,9 @@ if __name__ == "__main__":
     sessionCase = conversationStrategy(browser)
     commonSuite.session_module_prefix_condition()
     sessionCase.add_session_config_001()
-    sessionCase.check_session_config_002()
-    sessionCase.sing_user_login_and_session_003()
-    sessionCase.check_sing_user_login_004()
+#    sessionCase.check_session_config_002()
+#    sessionCase.sing_user_login_and_session_003()
+#    sessionCase.check_sing_user_login_004()
     #commonSuite.session_module_post_condition()
 
 

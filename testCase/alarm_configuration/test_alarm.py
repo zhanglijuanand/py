@@ -237,40 +237,8 @@ class AlarmConfig():
                 print ("Authentication exception error: ") + str(e)
         self.log.log_end("authAlarmLevelConfig")
     
-    #绕行告警模块
-    def ip_alarm_level_config_005(self):
-        #日志开始记录
-        self.log.log_start("ipAlarmLevelConfig")
-        #获取数据
-        ip_data = self.get_table_data("Detour")
-        #保存弹框
-        saveMsg = self.save_msg()
-        #无检查点的测试项标识，如果为True说明通过
-        flag = False
-        for dataRow in range(len(ip_data)):
-            data = ip_data[dataRow]
-            try:
-            #如果不是第一行标题，则读取数据
-                if dataRow != 0:
-                    self.frameElem.from_frame_to_otherFrame("mainFrame")
-                    self.alarm.click_left_config_test()
-                    self.alarm.ip_default_alarm_menu()
-                    self.alarm.ip_alarm_evel(data[2])
-                    self.alarm.ip_syslog_check()
-                    self.alarm.ip_mail_check()
-                    self.alarm.ip_exception_receive_user()
-                    self.add_receive_user()
-                    self.alarm.add_ignore_ip_value(data[3])
-                    self.alarm.add_ignore_ip()
-                    self.alarm.save_button()
-                    self.frameElem.switch_to_content()
-                    self.cmf.test_win_check_point("xpath", saveMsg, data, flag)
-            except Exception as e:
-                    print ("Detour mistake error: ") + str(e)
-        self.log.log_end("ipAlarmLevelConfig")
-    
     #告警归纳类型检索
-    def search_by_type_006(self):
+    def search_by_type_005(self):
         #日志开始记录
         self.log.log_start("searchByType")
         #获取数据
@@ -296,7 +264,7 @@ class AlarmConfig():
         self.log.log_end("searchByType")
     
     #告警归纳级别检索
-    def search_by_level_007(self):
+    def search_by_level_006(self):
         #日志开始记录
         self.log.log_start("searchByLevel")
         #获取数据
@@ -327,18 +295,16 @@ class AlarmConfig():
         flag = False
         self.frameElem.from_frame_to_otherFrame("mainFrame")
 
-#if __name__ == "__main__":
-#    browser = setDriver().set_local_driver()
-#    commonSuite = CommonSuiteData(browser)
-#    alarmCase = AlarmConfig(browser)
-#    commonSuite.alarm_strategy_module_prefix_condition()
-#    alarmCase.mod_user_mail_008()
-#    alarmCase.command_alarm_level_config_001()
-#    alarmCase.default_alarm_level_checkout_003()
-#    alarmCase.default_alarm_level_config_002()
-#    alarmCase.auth_alarm_level_config_004()
-#    alarmCase.ip_alarm_level_config_005()
-#    alarmCase.search_by_type_006()
-#    alarmCase.search_by_level_007()
-#    commonSuite.alarm_strategy_module_post_condition()
-#
+if __name__ == "__main__":
+    browser = setDriver().set_local_driver()
+    commonSuite = CommonSuiteData(browser)
+    alarmCase = AlarmConfig(browser)
+    commonSuite.alarm_strategy_module_prefix_condition()
+    alarmCase.mod_user_mail_008()
+    alarmCase.command_alarm_level_config_001()
+    alarmCase.default_alarm_level_checkout_003()
+    alarmCase.default_alarm_level_config_002()
+    alarmCase.auth_alarm_level_config_004()
+    alarmCase.search_by_type_005()
+    alarmCase.search_by_level_006()
+    commonSuite.alarm_strategy_module_post_condition()

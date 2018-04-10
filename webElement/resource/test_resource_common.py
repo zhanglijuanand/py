@@ -85,6 +85,7 @@ class Resource(object):
 				self.frameElem.from_frame_to_otherFrame("mainFrame")
 				return self.getElem.find_element_wait_and_click_EC("id", self.RESOURCE_ADD_BUTTON)
 			else:
+				self.frameElem.from_frame_to_otherFrame("mainFrame")
 				row = self.cmf.find_row_by_name(rename, "fortResourceName")
 				update_xpath = "/html/body/form/div/div[8]/div[2]/div/table/tbody/tr[" + str(row) + "]/td[7]/input[2]"
 				self.getElem.find_element_wait_and_click_EC("xpath", update_xpath)

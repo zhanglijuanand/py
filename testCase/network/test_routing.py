@@ -145,7 +145,7 @@ class RoutingConfiguration():
                     if data[4] != "":
                         self.routing.click_box(data[4])
                     else:
-                        self.routing.click_all()
+                        self.routing.click_box(data[3])
                     self.routing.click_del_button()
                     #返回上级frame
                     self.frameElem.switch_to_content()
@@ -159,15 +159,15 @@ class RoutingConfiguration():
     
     
 
-if __name__ == "__main__":
-    setDriver = setDriver()
-    browser = setDriver.set_local_driver()
-    cmf = commonFun(browser)
-    commonSuite = CommonSuiteData(browser)
-    commonSuite.login_and_switch_to_sys()
-    cmf.select_menu(u"系统配置", u"网络配置",u"路由配置")
-    
-    rout = RoutingConfiguration(browser)
-    rout.add_routing_001()
-    rout.check_routing_002()
-    rout.del_routing_003()
+#if __name__ == "__main__":
+#    setDriver = setDriver()
+#    browser = setDriver.set_local_driver()
+#    cmf = commonFun(browser)
+#    commonSuite = CommonSuiteData(browser)
+#    commonSuite.login_and_switch_to_sys()
+#    cmf.select_menu(u"系统配置", u"网络配置",u"路由配置")
+#    
+#    rout = RoutingConfiguration(browser)
+#    rout.add_routing_001()
+#    rout.check_routing_002()
+#    rout.del_routing_003()

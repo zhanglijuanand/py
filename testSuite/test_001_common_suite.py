@@ -18,7 +18,7 @@ from _initDriver import initDriver
 sys.path.append("/testIsomp/testSuite/common_suite_file/")
 from common_suite_file import setDriver,CommonSuiteData
 
-class testNetworkResourceSuite(unittest.TestCase):
+class testCommonSuite(unittest.TestCase):
 
 	def setUp(self):
 		#调用驱动

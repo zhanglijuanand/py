@@ -249,12 +249,12 @@ class Backuprestore(object):
 
 		self.frameElem.from_frame_to_otherFrame("rigthFrame")
 		row = 1
+		filenames = ""+filename[:-6] + ""+filename+""
 		selems = self.driver.find_elements_by_name("file")
 		for selem in selems:
 			idvalue = selem.get_attribute('id')
 			row = row +1
-			filename = ""+filename[:-6] + ""+filename+""
-			if idvalue == filename:
+			if idvalue == filename or idvalue == filenames:
 				xpath = ".//*[@id='content_rt02']/div/table/tbody/tr[" + str(row) + "]/td[7]/input[" + str(value) + "]"
 		self.getElem.find_element_wait_and_click_EC("xpath", xpath)
 		time.sleep(1)

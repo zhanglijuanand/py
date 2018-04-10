@@ -37,7 +37,7 @@ class testNetworkResourceSuite(unittest.TestCase):
 		self.account = testResourceAccount(self.browser)
 
 		#资源前置条件
-		self.comsuit.resource_module_prefix_condition()
+		self.comsuit.networkre_module_prefix_condition()
 
 	def test_network_resource(self):
 		#------------------------------网络设备资源-----------------------------------
@@ -61,13 +61,9 @@ class testNetworkResourceSuite(unittest.TestCase):
 		self.linuxresource.query_resource_004(_testDataPath.NETWORK_RESOURCE_TEST_DATA_URL, "query_network_resource")
 		#删除网络设备资源
 		self.linuxresource.del_resource_005(_testDataPath.NETWORK_RESOURCE_TEST_DATA_URL, "del_network_resource")
-		#全选删除资源
-		self.linuxresource.bulkdel_resource_006()
 
 	def tearDown(self):
-		#资源后置条件
-		self.comsuit.resource_module_post_condition()
-
+		self.comsuit.user_quit()
 		initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":

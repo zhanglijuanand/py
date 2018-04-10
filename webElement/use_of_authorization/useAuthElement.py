@@ -40,10 +40,10 @@ class UseAuth():
     UP_LOGO = "uploadLogo"
     #保存
     SAVE_BUTTON = "save"
-    #浏览升级包按钮
-    UP_FILE = "upgradeFile"
-    #上传升级包按钮
-    UP_LOAD = "upload"
+    #更新按钮
+    UPDATAAUTH = "updateAuth"
+    #授权码
+    AUTHCODE = "authCode"
     def __init__(self,driver):
         self.driver = driver
         self.log = log()
@@ -61,6 +61,28 @@ class UseAuth():
         except Exception as e:
             print ("save button error: ") + str(e)
     
+    #点击上传按钮
+    def up_logo_button(self):
+        try:
+            self.getElem.find_element_with_wait_clickable_and_click('id',self.UP_LOGO)
+        except Exception as e:
+            print ("up logo button error: ") + str(e)
+    
+    #点击更新按钮
+    def click_updateAuth_button(self):
+        try:
+            self.getElem.find_element_with_wait_clickable_and_click('id',self.UPDATAAUTH)
+        except Exception as e:
+            print ("click updateAuth button error: ") + str(e)
+    
+    #填写授权码
+    def add_authcode_name(self,authCode):
+        try:
+            self.getElem.find_element_wait_and_clear_EC('id',self.AUTHCODE)
+            return self.user.set_common_func(authCode,self.AUTHCODE)
+        except Exception as e:
+            print ("authCode error: ") + str(e)
+        
     #填写客户名称
     def add_customer_name(self,custname):
         return self.user.set_common_func(custname,self.CUST_NAME)
@@ -68,14 +90,7 @@ class UseAuth():
     #填写系统名称
     def add_system_name(self,sysname):
         return self.user.set_common_func(sysname,self.SYSTEM_NAME)
-    
-    #点击上传图片
-    def up_logo_button(self):
-        try:
-            self.getElem.find_element_with_wait_clickable_and_click("id",self.UP_LOGO)
-        except Exception as e:
-            print ("up logo button error: ") + str(e)
-    
+
     u'''点击浏览图片操作和校验
         parameter:
             index:1代表上传logo,2代表校验浏览图片操作
@@ -84,31 +99,10 @@ class UseAuth():
         try:
             self.frameElem.from_frame_to_otherFrame("mainFrame")
             if index == 1:
-                value = "D://UseOfAuthorization/logo.png"
+                value = "H://testIsomp/testData/envelope_image.png"
             elif index == 2:
-                value = "D://UseOfAuthorization/logo_or_upgrade.xlsx"
+                value = "H://testIsomp/testData/use_of_authorization.xlsx"
             self.getElem.find_element_wait_and_sendkeys('id',self.LOGO_IMAGE,value)
         except Exception as e:
             print ("click  and check up logo button error: ") + str(e)
     
-    u'''点击浏览升级包和校验
-        parameter:
-            index:1代表上传升级包,2代表校验udp结尾文件
-    '''
-    def click_or_check_file(self,index):
-        try:
-            if index == 1:
-                value = "D://UseOfAuthorization/071D255908260315.RyArmUdp"
-                #value = "D://UseOfAuthorization/3rq2w34r5t2r8u9o.RyArmUdp"
-            elif index == 2:
-                value = "D://UseOfAuthorization/logo_or_upgrade.xlsx"
-            self.getElem.find_element_wait_and_sendkeys("id","upgradeFile",value)
-        except Exception as e:
-            print ("up file button and check file error: ") + str(e)
-
-    #点击上传升级包
-    def up_load_file_button(self):
-        try:
-            self.getElem.find_element_with_wait_clickable_and_click('id',self.UP_LOAD)
-        except Exception as e:
-            print ("up load file button error: ") + str(e)

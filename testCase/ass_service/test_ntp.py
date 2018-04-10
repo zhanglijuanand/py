@@ -88,6 +88,8 @@ class ServiceNtp():
                 if dataRow != 0:
                     self.frameElem.from_frame_to_otherFrame("rigthFrame")
                     self.ntp.server_ip(data[2])
+                    #自动与时间同步服务器
+                    self.ntp.check_time_server()
                     self.ntp.set_cycle_date(data[3])
                     self.ntp.set_cycle_time(data[4])
                     self.ntp.save_button()
@@ -99,11 +101,11 @@ class ServiceNtp():
                 print ("edit ntp fail: ") + str(e)
         self.log.log_end("editNtp")
         
-    u'''校验服务器IP与周期'''
+    u'''校验服务器IP'''
     def check_ntp_002(self):
         #日志开始记录
         self.log.log_start("checkNtp")
-        #获取校验服务器IP与周期的数据
+        #获取校验服务器IP的数据
         ntp_data = self.get_table_data("check_ntp")
         #点击保存按钮弹出框
         ntp_msg = self.ntp_msg()
@@ -116,7 +118,6 @@ class ServiceNtp():
                 if dataRow != 0:
                     self.frameElem.from_frame_to_otherFrame("rigthFrame")
                     self.ntp.server_ip(data[2])
-                    self.ntp.set_cycle_time(data[3])
                     self.ntp.save_button()
                     #返回上级frame
                     self.frameElem.switch_to_content()
@@ -146,9 +147,10 @@ class ServiceNtp():
                 if dataRow != 0:
                     self.frameElem.from_frame_to_otherFrame("rigthFrame")
                     self.ntp.server_ip(data[2])
-                    self.ntp.set_cycle_date(data[3])
-                    self.ntp.set_cycle_time(data[4])
-                    if dataRow == row_count:
+                    if dataRow != row_count:
+                        self.ntp.set_cycle_date(data[3])
+                        self.ntp.set_cycle_time(data[4])
+                    else:
                         #自动与时间同步服务器
                         self.ntp.check_time_server()                       
                     self.ntp.save_button()

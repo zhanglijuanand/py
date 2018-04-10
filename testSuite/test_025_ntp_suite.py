@@ -45,7 +45,7 @@ class TestNtpSuite(unittest.TestCase):
     def test_ntp(self):
         #编辑服务器IP与周期
         self.service.edit_ntp_001()
-        #校验服务器IP与周期
+        #校验服务器IP
         self.service.check_ntp_002()        
         #更新系统时间
         self.service.update_ntp_003()        

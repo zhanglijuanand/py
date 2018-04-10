@@ -65,7 +65,7 @@ class AppPage():
     #保存
     SAVE_BUTTON = "save_application_release"
     #返回
-    BACK_BUTTON = "back"
+    BACK_BUTTON = "history_skip"
     #账号删除
     ACCOUNT_DEL = "btnDelApplicationReleaseAccount"
     #账号名称

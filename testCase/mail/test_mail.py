@@ -162,6 +162,13 @@ class testMail(object):
                 elif dataRow == 6:
                     self.mailpage.mail_account(data[3])
                     self.mailpage.mail_passwd(data[4])
+                elif dataRow == 7:
+                    self.mailpage.mail_address(data[2])
+                    self.mailpage.mail_account(data[3])
+                    self.mailpage.mail_passwd(data[4])
+                    self.mailpage.confirm_passwd(
+                        data[5]
+                    )
                 if 3 < dataRow:
                     self.mailpage.save_mail()
                 if dataRow != 0:
@@ -188,7 +195,6 @@ class testMail(object):
             try:
                 #如果不是第一行标题，则读取数据
                 if dataRow == 1:
-                    self.mailpage.condition()
                     self.mailpage.condition()
                     self.mailpage.save_mail()
                     time.sleep(2)

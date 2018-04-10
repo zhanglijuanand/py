@@ -24,15 +24,12 @@ class testSsoSuite(unittest.TestCase):
         #单点登录前置条件
         self.commonSuite.sso_prefix_condition()
     
-    def test_sso_method(self):
-        #单点登录
+    def test_cmd_sso_method(self):
+        #命令单点登录
         self.ssoMethod.cisco_sso_login_001()
         self.ssoMethod.cisco_niming_sso_login_002()
         self.ssoMethod.huawei_sso_login_003()
         self.ssoMethod.debian_sso_login_004()
-#        self.ssoMethod.windows_sso_login_005()
-#        self.ssoMethod.domain_sso_login_006()
-#        self.ssoMethod.yunei_sso_login_007()
         
     def tearDown(self):
         pass

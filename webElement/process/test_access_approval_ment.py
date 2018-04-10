@@ -111,8 +111,10 @@ class Accapproval(object):
 		status = self.cnEn.is_float(statu)
 		row = self.select_resoure_sso(rname)
 		xpath = "/html/body/div[1]/div[7]/div[2]/div/table/tbody/tr[" + str(
-			row * 2) + "]/td/div/table/tbody/tr/td[2]/a[" + status + "]/img"
+			row * 2) + "]/td/div/table/tbody/tr/td[2]/a[" + str(status) + "]/img"
+		time.sleep(2)
 		self.getElem.find_element_wait_and_click_EC("xpath", xpath)
+
 
 	u'''选择进行资源账号
             parameters :
@@ -290,8 +292,7 @@ class Accapproval(object):
 		self.frameElem.from_frame_to_otherFrame("topFrame")
 		self.cmf.select_menu(u"流程控制", u"申请历史")
 		self.frameElem.from_frame_to_otherFrame("mainFrame")
-		selem = self.getElem.find_element_with_wait_EC("xpath",
-													   "/html/body/form/div/div[6]/div[2]/div/table/tbody/tr[1]/td[3]")
+		selem = self.getElem.find_element_with_wait_EC("xpath","/html/body/form/div/div[6]/div[2]/div/table/tbody/tr[1]/td[3]")
 		applytime = selem.get_attribute('textContent')
 		return applytime
 
@@ -301,9 +302,9 @@ class Accapproval(object):
 		time.sleep(2)
 		self.cmf.select_menu(u"流程控制", u"申请历史")
 		self.frameElem.from_frame_to_otherFrame("mainFrame")
-		selem = self.getElem.find_element_with_wait_EC("xpath",
-													   "/html/body/form/div/div[6]/div[2]/div/table/tbody/tr[1]/td[2]")
+		selem = self.getElem.find_element_with_wait_EC("xpath","/html/body/form/div/div[6]/div[2]/div/table/tbody/tr[1]/td[2]")
 		number = selem.get_attribute('textContent')
+		time.sleep(3)
 		return number
 
 	u'''返回退出公共方法'''
@@ -418,8 +419,10 @@ class Accapproval(object):
 		# 日期控件table的xpath路径
 		txpath = "/html/body/div/div[3]/table"
 		self.select_resoure_account(data[1], data[2])
+		time.sleep(2)
 		self.click_access_approval_icon(data[1], data[3])
 		self.frameElem.from_frame_to_otherFrame("artIframe")
+		time.sleep(2)
 		self.cmf.select_time("fortStartTime", fxpath, data[4], data[5], txpath)
 		self.frameElem.from_frame_to_otherFrame("artIframe")
 		# 转成datetime对象

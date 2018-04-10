@@ -64,14 +64,14 @@ class Role(object):
 	u'''全选系统级角色'''
 	def select_sysrole(self):
 		try:
-			self.getElem.find_element_wait_and_click("id", "treeDemo_1_check")
-			self.getElem.find_element_wait_and_click("id", "treeDemo_3_check")
-			self.getElem.find_element_wait_and_click("id", "treeDemo_7_check")
-			self.getElem.find_element_wait_and_click("id", "treeDemo_11_check")
-			self.getElem.find_element_wait_and_click("id", "treeDemo_16_check")
-			self.getElem.find_element_wait_and_click("id", "treeDemo_20_check")
-			self.getElem.find_element_wait_and_click("id", "treeDemo_23_check")
-			self.getElem.find_element_wait_and_click("id", "treeDemo_50_check")
+			self.getElem.find_element_wait_and_click_EC("xpath", "/html/body/form/div/div[2]/div[2]/table[1]/tbody/tr[4]/td[2]/ul/li[1]/span[2]")
+			self.getElem.find_element_wait_and_click_EC("xpath", "/html/body/form/div/div[2]/div[2]/table[1]/tbody/tr[4]/td[2]/ul/li[2]/span[2]")
+			self.getElem.find_element_wait_and_click_EC("xpath", "/html/body/form/div/div[2]/div[2]/table[1]/tbody/tr[4]/td[2]/ul/li[3]/span[2]")
+			self.getElem.find_element_wait_and_click_EC("xpath", "/html/body/form/div/div[2]/div[2]/table[1]/tbody/tr[4]/td[2]/ul/li[4]/span[2]")
+			self.getElem.find_element_wait_and_click_EC("xpath", "/html/body/form/div/div[2]/div[2]/table[1]/tbody/tr[4]/td[2]/ul/li[5]/span[2]")
+			self.getElem.find_element_wait_and_click_EC("xpath", "/html/body/form/div/div[2]/div[2]/table[1]/tbody/tr[4]/td[2]/ul/li[6]/span[2]")
+			self.getElem.find_element_wait_and_click_EC("xpath", "/html/body/form/div/div[2]/div[2]/table[1]/tbody/tr[4]/td[2]/ul/li[7]/span[2]")
+			self.getElem.find_element_wait_and_click_EC("xpath", "/html/body/form/div/div[2]/div[2]/table[1]/tbody/tr[4]/td[2]/ul/li[8]/span[2]")
 		except Exception:
 			print("Select the role of system level failure")
 

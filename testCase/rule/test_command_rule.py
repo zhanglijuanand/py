@@ -221,11 +221,16 @@ class testCommand(object):
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0:
 					self.command.sso_command(data)
+					handles = self.driver.window_handles
 					if dataRow == 2:
-						self.command.command_by_message_approval(data[9], data[10], data[11])
+						self.command.command_by_message_approval(data[6], data[7], data[8])
 						self.cmf.click_login_msg_button()
-					time.sleep(3)
-					self.command.choice_browser_close(data[4])
+
+					self.driver.switch_to.window(handles[1])
+					self.driver.close()
+					self.driver.switch_to.window(handles[0])
+
+					#关闭浏览器
 					self.log.log_detail(data[0], True)
 			except Exception as e:
 				print ("command_approval fail:" + str(e))
@@ -249,10 +254,7 @@ class testCommand(object):
 			try:
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0:
-					if dataRow == 1:
-						self.command.click_action_public_command(data[2], data[3])
-					elif dataRow == 2:
-						self.command.check_all()
+					self.command.click_action_public_command(data[2], data[3])
 					self.command.click_del_command()
 					self.frameElem.switch_to_content()
 					self.cmf.test_win_check_point("xpath", comrulMsg, data, flag)

@@ -63,10 +63,10 @@ class testDatabaseResourceSuite(unittest.TestCase):
 		self.linuxresource.query_resource_004(_testDataPath.DATABASE_TEST_DATA_URL, "query_database_resource")
 		#删除mysql资源
 		self.linuxresource.del_resource_005(_testDataPath.DATABASE_TEST_DATA_URL, "del_mysql_resource")
-		#删除db2资源
-		self.linuxresource.del_resource_005(_testDataPath.DATABASE_TEST_DATA_URL, "del_db2_resorce")
+#		#删除db2资源
+#		self.linuxresource.del_resource_005(_testDataPath.DATABASE_TEST_DATA_URL, "del_db2_resorce")
 		#全选删除资源
-		self.linuxresource.bulkdel_resource_006()
+		#self.linuxresource.bulkdel_resource_006()
 		
 
 	def tearDown(self):

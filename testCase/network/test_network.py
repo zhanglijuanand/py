@@ -101,6 +101,9 @@ class NetworkCard:
                         self.network.set_eth3_ip(data[2])
                         self.network.set_eth3_mask(data[3])
                         self.network.click_eth3_set_button()
+                    elif dataRow == 4:
+                        self.network.gateway(data[4])
+                        self.network.click_set_gateWay_button()
                     #返回上级frame
                     self.frameElem.switch_to_content()
                     #判断测试项是否通过
@@ -139,7 +142,7 @@ class NetworkCard:
                         self.network.click_eth3_del_button()                   
                     self.cmf.click_msg_button(1)
                     self.frameElem.switch_to_content()
-                        #判断测试项是否通过
+                    #判断测试项是否通过
                     self.cmf.test_win_check_point("xpath", network_msg, data, flag)
             except Exception as e:
                 print ("del network card fail: ") + str(e)
@@ -169,7 +172,6 @@ class NetworkCard:
                     elif dataRow > 2:
                         self.network.set_eth1_ip(data[2])
                         self.network.set_eth1_mask(data[3])
-                        self.network.set_eth1_gateway(data[4])
                         self.network.click_eth1_set_button()
                     #返回上级frame
                     self.frameElem.switch_to_content()

@@ -107,6 +107,8 @@ class testBackupRestore(object):
 					#进行用户信息是否存在
 					self.cmf.select_menu(u"运维管理", u"用户")
 					self.backup.check_content(data[3], "fortUserName", data[11])
+					#删除用户信息
+					self.backup.del_user_info(data[8])
 			except Exception as e:
 				print ("backup_entity_config fail:" + str(e))
 		self.log.log_end("backup_entity_config")
@@ -154,6 +156,8 @@ class testBackupRestore(object):
 					#进行角色信息是否存在
 					self.cmf.select_menu(u"角色管理", u"角色定义")
 					self.backup.check_content(data[13], "fortRoleName", data[16])
+					#删除角色信息
+					self.backup.del_role_info(data[15])
 			except Exception as e:
 				print (" backup_sys_entity fail:" + str(e))
 		self.log.log_end(" backup_sys_entity")

@@ -50,33 +50,30 @@ class NetworkResource(object):
 			self.resource.set_depart(data[4])
 
 		self.resource.select_all_agreement()
-		#telnet 登录模式
-		if data[7] != 'no':
-			self.telnet_login_type(data[7])
 		#系统版本
-		if data[8] != 'no':
-			self.resource.set_sys_version(data[8])
+		if data[7] != 'no':
+			self.resource.set_sys_version(data[7])
 		#改密驱动名称
-		if data[9] != 'no':
-			self.resource.set_changePwd_driver(data[9])
+		if data[8] != 'no':
+			self.resource.set_changePwd_driver(data[8])
 
 		#管理员帐号
-		if data[10] != 'no':
+		if data[9] != 'no':
 			self.resource.click_account_sync()
-			self.resource.set_admin_account(data[10])
+			self.resource.set_admin_account(data[9])
 		#管理员口令
-		if data[11] != 'no':
-			self.resource.set_admin_pwd(data[11])
+		if data[10] != 'no':
+			self.resource.set_admin_pwd(data[10])
 		#口令确认
-		if data[12] != 'no':
-			self.resource.set_confirm_pwd(data[12])
+		if data[11] != 'no':
+			self.resource.set_confirm_pwd(data[11])
 		#提权
-		if data[13] != 'no':
+		if data[12] != 'no':
 			self.resource.click_up_super()
 			#提权账号口令
-			self.resource.set_super_pwd(data[13])
+			self.resource.set_super_pwd(data[12])
 			#确认口令
-			self.resource.set_super_confirm_pwd(data[14])
+			self.resource.set_super_confirm_pwd(data[13])
 		self.resource.click_save_button()
 
 	u'''校验网络设备资源

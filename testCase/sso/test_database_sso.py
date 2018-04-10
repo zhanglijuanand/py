@@ -128,7 +128,8 @@ class testDatabaseSso():
 #	browser = setDriver().set_local_driver()
 #
 #	commonSuite = CommonSuiteData(browser)
-#	#commonSuite.database_sso_prefix_condition()
+	#commonSuite.database_sso_post_condition()
+	#commonSuite.database_sso_prefix_condition()
 #	commonSuite.login_and_switch_to_common()
 ##	
 #	ssoTest = testDatabaseSso(browser)

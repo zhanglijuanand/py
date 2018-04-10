@@ -80,8 +80,6 @@ class testRoleSuite(unittest.TestCase):
 		self.testrole.check_bulkdel()
 		u'''删除角色'''
 		self.testrole.del_role_006()
-		u'''全选删除角色'''
-		self.testrole.bulkdel_role_007()
 
 	def tearDown(self):
 		#角色后置条件

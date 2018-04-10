@@ -52,12 +52,10 @@ class TestAlarmSuite(unittest.TestCase):
         self.alarmCase.default_alarm_level_config_002()
         #配置认证失败告警
         self.alarmCase.auth_alarm_level_config_004()
-        #配置绕行告警
-        self.alarmCase.ip_alarm_level_config_005()
         #告警归纳类型检索
-        self.alarmCase.search_by_type_006()
+        self.alarmCase.search_by_type_005()
         #告警归纳级别检索
-        self.alarmCase.search_by_level_007()
+        self.alarmCase.search_by_level_006()
         
     def tearDown(self):
         #后置条件

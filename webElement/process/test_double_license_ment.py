@@ -66,7 +66,9 @@ class Dobapproval(object):
 		row = self.acproval.select_resoure_sso(rname)
 		xpath = "/html/body/div[1]/div[7]/div[2]/div/table/tbody/tr[" + str(
 			row * 2) + "]/td/div/table/tbody/tr/td[2]/a/img"
+		time.sleep(2)
 		self.getElem.find_element_wait_and_click_EC("xpath", xpath)
+		time.sleep(2)
 
 	u'''校验图标
 	   parameters :
@@ -79,6 +81,7 @@ class Dobapproval(object):
 		self.acproval.click_refresh_icon(rename)
 		ico_xpath = "/html/body/div[1]/div[7]/div[2]/div[1]/table/tbody/tr[" + str(
 			row * 2) + "]/td/div/table/tbody/tr/td[2]"
+		time.sleep(2)
 		selem = self.getElem.find_element_with_wait_EC("xpath", ico_xpath)
 		selems = selem.find_elements_by_tag_name("a")
 		lengh = len(selems)

@@ -27,12 +27,14 @@ from _testDataPath import dataFileName
 
 class Network:
     
+    #输入网关
+    GATEWAY = "gateWay"
+    #设置网关
+    SET_GATEWAY = "changeGATEWAY"
     #eth0IP
     ETH0_IP = "eth0_ip"
     #eth0子网掩码
     ETH0_MASK = "eth0_mask"
-    #eth0网关
-    ETH0_GATEWAY = "eth0_gateWay"
     #eth0设置网卡按钮
     ETH0_SET_BUTTON = "0"
     #eth0清空网卡按钮
@@ -41,8 +43,6 @@ class Network:
     ETH1_IP = "eth1_ip"
     #eth1子网掩码
     ETH1_MASK = "eth1_mask"
-    #eth1网关
-    ETH1_GATEWAY = "eth1_gateWay"
     #eth1设置网卡按钮
     ETH1_SET_BUTTON = "1"
     #eth1清空网卡按钮
@@ -51,8 +51,6 @@ class Network:
     ETH2_IP = "eth2_ip"
     #eth2子网掩码
     ETH2_MASK = "eth2_mask"
-    #eth2网关
-    ETH2_GATEWAY = "eth2_gateWay"
     #eth2设置网卡按钮
     ETH2_SET_BUTTON = "2"
     #eth2清空网卡按钮
@@ -61,8 +59,6 @@ class Network:
     ETH3_IP = "eth3_ip"
     #eth3子网掩码
     ETH3_MASK = "eth3_mask"
-    #eth3网关
-    ETH3_GATEWAY = "eth3_gateWay"
     #eth3设置网卡按钮
     ETH3_SET_BUTTON = "3"
     #eth3清空网卡按钮
@@ -94,6 +90,17 @@ class Network:
         except Exception as e:
             print ("set user common text error: ") + str(revar_text) + str(e)
             
+    u'''输入网关
+        parameters:
+            GateWay : 网关
+    '''
+    def gateway(self,GateWay):
+        return self.set_common_func(GateWay,self.GATEWAY)
+    
+    u'''点击设置网关按钮'''
+    def click_set_gateWay_button(self):
+        self.getElem.find_element_wait_and_click_EC("id",self.SET_GATEWAY)    
+            
     u'''输入eth0的IP
         parameters:
             eth0Ip : IP
@@ -109,13 +116,6 @@ class Network:
     def set_eth0_mask(self,eth0Mask):
         return self.set_common_func(eth0Mask,self.ETH0_MASK)
     
-    u'''输入eth0的网关
-        parameters:
-            eth0GateWay : 网关
-    '''
-    def set_eth0_gateway(self,eth0GateWay):
-        return self.set_common_func(eth0GateWay,self.ETH0_GATEWAY)
-    
     u'''点击eth0设置网卡按钮'''
     def click_eth0_set_button(self):
         self.getElem.find_element_wait_and_click_EC("id",self.ETH0_SET_BUTTON)
@@ -124,12 +124,12 @@ class Network:
     def click_eth0_del_button(self):
         time.sleep(1)
         self.getElem.find_element_wait_and_click_EC("id",self.ETH0_DEL_BUTTON)
-        
+    
+    u'''点击确定按钮'''    
     def click_highlight_button(self):
         self.frameElem.switch_to_content()
         self.getElem.find_element_wait_and_click_EC("classname",self.HIGHLIGHT_BUTTON)
     
-        
     u'''输入eth1的IP
         parameters:
             eth1Ip : IP
@@ -144,13 +144,6 @@ class Network:
     '''
     def set_eth1_mask(self,eth1Mask):
         return self.set_common_func(eth1Mask,self.ETH1_MASK)
-    
-    u'''输入eth1的网关
-        parameters:
-            eth1GateWay : 网关
-    '''
-    def set_eth1_gateway(self,eth1GateWay):
-        return self.set_common_func(eth1GateWay,self.ETH1_GATEWAY)
     
     u'''点击eth1设置网卡按钮'''
     def click_eth1_set_button(self):
@@ -176,13 +169,6 @@ class Network:
     def set_eth2_mask(self,eth2Mask):
         return self.set_common_func(eth2Mask,self.ETH2_MASK)
     
-    u'''输入eth2的网关
-        parameters:
-            eth2GateWay : 网关
-    '''
-    def set_eth2_gateway(self,eth2GateWay):
-        return self.set_common_func(eth2GateWay,self.ETH2_GATEWAY)
-    
     u'''点击eth2设置网卡按钮'''
     def click_eth2_set_button(self):
         self.getElem.find_element_wait_and_click_EC("id",self.ETH2_SET_BUTTON)
@@ -206,13 +192,6 @@ class Network:
     '''
     def set_eth3_mask(self,eth3Mask):
         return self.set_common_func(eth3Mask,self.ETH3_MASK)
-    
-    u'''输入eth3的网关
-        parameters:
-            eth3GateWay : 网关
-    '''
-    def set_eth3_gateway(self,eth3GateWay):
-        return self.set_common_func(eth3GateWay,self.ETH3_GATEWAY)
     
     u'''点击eth3设置网卡按钮'''
     def click_eth3_set_button(self):

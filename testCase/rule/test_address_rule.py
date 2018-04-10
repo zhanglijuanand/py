@@ -235,12 +235,8 @@ class testAddress(object):
 				if dataRow != 0:
 					if dataRow == 1:
 						self.adrerule.click_bulkdel_address()
-					if dataRow == 2:
+					else:
 						self.adrerule.click_del_address(data[2])
-					elif dataRow == 3:
-						self.command.check_all()
-						self.adrerule.click_bulkdel_address()
-
 					self.frameElem.switch_to_content()
 					self.cmf.test_win_check_point("xpath", comrulMsg, data, flag)
 

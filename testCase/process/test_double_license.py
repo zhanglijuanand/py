@@ -70,7 +70,6 @@ class testDobapproval(object):
 					self.authElem.click_all_approver()
 					self.authElem.click_all_candidate()
 					self.authElem.click_start_association()
-					self.frameElem.switch_to_artIframe()
 					self.authElem.click_create_relate()
 					self.cmf.click_login_msg_button()
 					#点击返回

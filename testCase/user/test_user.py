@@ -498,7 +498,8 @@ class User():
 #					self.frameElem.from_frame_to_otherFrame("mainFrame")
 #					self.user.page_select_all()
 					self.frameElem.from_frame_to_otherFrame("mainFrame")
-					self.user.select_all_button()
+					self.user.del_specified_user(data[2])
+					#self.user.select_all_button()
 					self.user.del_button()
 					self.cmf.click_login_msg_button()
 					

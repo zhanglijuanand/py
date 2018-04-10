@@ -475,11 +475,11 @@ class testAuthorization():
 				if  dataRow != 0:
 					self.frameElem.from_frame_to_otherFrame("mainFrame")
 					#如果是第一行，删除单条授权
-					if dataRow == 1:
-						self.authElem.click_auth_checkbox(data[2])
+					#if dataRow == 1:
+					self.authElem.click_auth_checkbox(data[2])
 					#如果是第二行删除全部授权
-					if dataRow == 2:
-						self.authElem.check_all()
+#					if dataRow == 2:
+#						self.authElem.check_all()
 					self.authElem.del_button()
 					self.cmf.click_login_msg_button()
 					#判断测试项是否通过
@@ -590,15 +590,12 @@ class testAuthorization():
 				print ("Add double approvel fail: ") + str(e)
 		
 		self.log.log_end("AddDoubleApprovel_012")
-	
-	
-
-	
 
 #if __name__ == "__main__":
 #	browser = setDriver().set_local_driver()
 #	commonSuite = CommonSuiteData(browser)
-#	commonSuite.authori_module_prefix_condition()
+	
+	#commonSuite.authori_module_prefix_condition()
 	
 #	commonSuite.isomper_login()
 #	commonSuite.add_sys_role()
@@ -612,9 +609,9 @@ class testAuthorization():
 #	commonSuite.switch_to_moudle(u'运维管理',u'授权')
 #	authElem = AuthorizationPage(browser)
 #	authTest = testAuthorization(browser)
-
-
-
+#
+#
+#
 #	authTest.add_user_and_res_auth_001()
 #	authTest.add_user_and_res_group_auth_002()
 #	authTest.add_user_and_res_account_auth_003()

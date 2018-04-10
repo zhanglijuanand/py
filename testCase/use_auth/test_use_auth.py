@@ -84,7 +84,7 @@ class UseAuthorization():
                 print ("product adding error: ") + str(e)
         self.log.log_end("addProductInformation")
     
-    #上传logo与升级包
+    #上传logo
     def upload_logo_upgrade_002(self):
         #日志开始记录
         self.log.log_start("uploadLogo")
@@ -100,14 +100,8 @@ class UseAuthorization():
             #如果不是第一行标题，则读取数据upload
                 if dataRow != 0:
                     self.frameElem.from_frame_to_otherFrame("mainFrame")
-                    if dataRow == 1:
-                        #上传logo
-                        self.useauth.click_or_check_logo(1)
-                        self.useauth.up_logo_button()
-                    elif dataRow == 2:
-                        #上传升级包
-                        self.useauth.click_or_check_file(1)
-                        self.useauth.up_load_file_button()
+                    self.useauth.click_or_check_logo(1)
+                    self.useauth.up_logo_button()
                     self.frameElem.switch_to_content()
                     self.cmf.test_win_check_point("xpath", saveMsg, data, flag)
             except Exception as e:
@@ -138,8 +132,8 @@ class UseAuthorization():
             except Exception as e:
                 print ("product check error: ") + str(e)
         self.log.log_end("checkProductInformation")
-    
-    #logo与升级包校验
+
+    #logo校验
     def check_logo_upgrade_004(self):
         #日志开始记录
         self.log.log_start("checkUpgradeUplogo")
@@ -162,34 +156,74 @@ class UseAuthorization():
                         #以图片格式校验
                         self.useauth.click_or_check_logo(2)
                         self.useauth.up_logo_button()
-                    elif dataRow == 3:
-                        #文件为空校验
-                        self.useauth.up_load_file_button()
-                    elif dataRow == 4:
-                        #升级包已存在校验
-                        self.useauth.click_or_check_file(1)
-                        self.useauth.up_load_file_button()
-                    elif dataRow == 5:
-                        #为升级包结尾udp校验
-                        self.useauth.click_or_check_file(2)
-                        self.useauth.up_load_file_button()
                     self.frameElem.switch_to_content()
                     self.cmf.test_win_check_point("xpath", saveMsg, data, flag)
             except Exception as e:
                 print ("check upgrad uplogo error: ") + str(e)
         self.log.log_end("checkUpgradeUplogo")
     
-
-#if __name__ == "__main__":
-#    browser = setDriver().set_local_driver()
-#    commonSuite = CommonSuiteData(browser)
-#    useAuth = UseAuthorization(browser)
-#    commonSuite.use_auth_module_prefix_condition()
-#    #填写产品信息
-#    useAuth.add_product_information_001()
-#    #上传logo和升级包
-#    useAuth.upload_logo_upgrade_002()
-#    #产品信息校验
-#    useAuth.check_product_information_003()
-#    #logo和升级包校验
-#    useAuth.check_logo_upgrade_004()
+    #更新授权码
+    def add_product_information_005(self):
+        #日志开始记录
+        self.log.log_start("updateAuthorization")
+        #获取数据
+        use_data = self.get_table_data("update_authorization")
+        #保存弹框
+        saveMsg = self.save_msg()
+        #无检查点的测试项标识，如果为True说明通过
+        flag = False
+        for dataRow in range(len(use_data)):
+            data = use_data[dataRow]
+            try:
+            #如果不是第一行标题，则读取数据
+                if dataRow != 0:
+                    self.frameElem.from_frame_to_otherFrame("mainFrame")
+                    self.useauth.add_authcode_name(data[2])
+                    self.useauth.click_updateAuth_button()
+                    self.frameElem.switch_to_content()
+                    self.cmf.test_win_check_point("xpath", saveMsg, data, flag)
+            except Exception as e:
+                print ("update authorization error: ") + str(e)
+        self.log.log_end("updateAuthorization")
+    
+    #更新授权码校验
+    def check_updata_auth_006(self):
+        #日志开始记录
+        self.log.log_start("checkUpdatAuth")
+        #获取数据
+        use_data = self.get_table_data("check_updata_auth")
+        #保存弹框
+        saveMsg = self.save_msg()
+        #无检查点的测试项标识，如果为True说明通过
+        flag = False
+        for dataRow in range(len(use_data)):
+            data = use_data[dataRow]
+            try:
+            #如果不是第一行标题，则读取数据
+                if dataRow != 0:
+                    self.frameElem.from_frame_to_otherFrame("mainFrame")
+                    self.useauth.add_authcode_name(data[2])
+                    self.useauth.click_updateAuth_button()
+                    self.frameElem.switch_to_content()
+                    self.cmf.test_win_check_point("xpath", saveMsg, data, flag)
+            except Exception as e:
+                print ("check updat auth error: ") + str(e)
+        self.log.log_end("checkUpdatAuth")
+    
+if __name__ == "__main__":
+    browser = setDriver().set_local_driver()
+    commonSuite = CommonSuiteData(browser)
+    useAuth = UseAuthorization(browser)
+    commonSuite.use_auth_module_prefix_condition()
+    #填写产品信息
+    useAuth.add_product_information_001()
+    #上传logo
+    useAuth.upload_logo_upgrade_002()
+    #产品信息校验
+    useAuth.check_product_information_003()
+    #logo包校验
+    useAuth.check_logo_upgrade_004()
+    #上传授权码
+    useAuth.add_product_information_005()
+    #上传授权码校验
+    useAuth.check_updata_auth_006()

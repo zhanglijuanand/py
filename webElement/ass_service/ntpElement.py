@@ -33,7 +33,7 @@ class NtpService:
     #保存按钮
     SAVE_BUTTON = "timeSet_save"
     #勾选自动与时间服务器同步
-    CHECK = "check"
+    CHECK = "check1"
     #周期方式
     CYCLEDATE = "dateStatus"
     #周期时间
@@ -114,20 +114,23 @@ class NtpService:
             
     u'''选择周期方式
             Parameters:
-                value:select选项中的value属性值,1代表天,2代表小时,3代表分钟
+                value:select选项中的value属性值,1代表每天,2代表小时,3代表分钟
         '''
     def set_cycle_date(self, value):
         valu = self.cnEnde.is_float(value)
         self.frameElem.from_frame_to_otherFrame("rigthFrame")
         selem = self.getElem.find_element_with_wait_EC('id',self.CYCLEDATE)
         self.select.select_element_by_value(selem, valu)
-  
-    u'''填写周期时间
-        parameters:
-            timeDay : 周期时间
-    '''      
-    def set_cycle_time(self,timeDay):
-        return self.set_common_func(timeDay,self.CYCLETIME)
+        
+    u'''选择周期时间
+            Parameters:
+                value:select选项中的value属性值
+        '''
+    def set_cycle_time(self, value):
+        valu = self.cnEnde.is_float(value)
+        self.frameElem.from_frame_to_otherFrame("rigthFrame")
+        selem = self.getElem.find_element_with_wait_EC('id',self.CYCLETIME)
+        self.select.select_element_by_value(selem, valu)    
     
     u'''获取同步信息'''
     def get_element_content(self):

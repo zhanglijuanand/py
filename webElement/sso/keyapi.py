@@ -62,6 +62,26 @@ class Command:
 		win32api.keybd_event(VK_CODE[keyStr],0,0,0)
 		win32api.keybd_event(VK_CODE[keyStr],0,win32con.KEYEVENTF_KEYUP,0)
 	
+	u'''按下键'''
+	def down_key(self,keyStr):
+		if(keyStr.find('with_shift_') != -1):
+			win32api.keybd_event(VK_CODE['shift'],0,0,0)
+		win32api.keybd_event(VK_CODE[keyStr],0,0,0)
+		
+	u'''弹起键'''
+	def up_key(self,keyStr):
+		win32api.keybd_event(VK_CODE[keyStr],0,win32con.KEYEVENTF_KEYUP,0)
+		if(keyStr.find('with_shift_') != -1):
+			win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+
+	u'''操作组合键'''
+	def opration_combination_key(self,keyList):
+		for key in keyList:
+			self.down_key(key)
+		for key in keyList:
+			self.up_key(key)
+
+	
 	u'''转换特殊字符'''
 	def change_word(self, word):
 		if(word == " "):

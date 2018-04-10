@@ -43,7 +43,7 @@ class testAppSuite(unittest.TestCase):
 
     def tearDown(self):
         #应用发布后置条件
-        self.commonSuite.client_module_post_condition()
+        self.commonSuite.application_module_post_condition()
         initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":

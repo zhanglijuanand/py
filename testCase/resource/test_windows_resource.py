@@ -96,7 +96,6 @@ class testWindowsResource(object):
 					self.resource.click_add_edit_button(data[2])
 					self.window.add_edit_windows_resource(data)
 					self.frameElem.switch_to_content()
-					self.cmf.click_msg_button(1)
 					self.cmf.test_win_check_point("xpath", windowsMsg, data, flag)
 					self.cmf.back()
 			except Exception as e:

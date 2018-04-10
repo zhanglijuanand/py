@@ -106,9 +106,6 @@ class testAccapproval(object):
 					number = self.acproval.get_new_process_number()
 					self.loginElem.quit()
 					self.acproval.approval_by_approver(acpData, number)
-					self.comsuit.use_new_user_login()
-					self.acproval.check_access_ico_len(data[1])
-					self.loginElem.quit()
 			except Exception as e:
 				print ("access_deny_approvel fail: ") + str(e)
 		self.log.log_end("access_deny_approvel")
@@ -133,9 +130,6 @@ class testAccapproval(object):
 					number = self.acproval.get_new_process_number()
 					self.loginElem.quit()
 					self.acproval.approval_by_approver(acpData, number)
-					self.comsuit.use_new_user_login()
-					self.acproval.check_access_ico_len(data[1])
-					self.loginElem.quit()
 			except Exception as e:
 				print ("access_agree_approvel fail: ") + str(e)
 		self.log.log_end("access_agree_approvel")

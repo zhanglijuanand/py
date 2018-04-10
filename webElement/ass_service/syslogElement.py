@@ -1,5 +1,4 @@
 #coding=utf-8
-#coding=utf-8
 u''' 
 #文件名：
 #被测软件版本号：V2.8.1

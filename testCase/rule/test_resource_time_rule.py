@@ -241,10 +241,7 @@ class testRetime(object):
 			try:
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0:
-					if dataRow == 1:
-						self.retime.click_option_method(data[2], data[3])
-					elif dataRow == 2:
-						self.command.check_all()
+					self.retime.click_option_method(data[2], data[3])
 					self.retime.click_bulkdel_retime()
 					self.frameElem.switch_to_content()
 					self.cmf.test_win_check_point("xpath", comrulMsg, data, flag)

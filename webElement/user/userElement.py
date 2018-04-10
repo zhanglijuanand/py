@@ -146,7 +146,6 @@ class UserPage():
         except Exception as e:
             print ("Delete button error: ") + str(e)
 
-
     '''点击检索按钮'''     
     def click_search_button(self):
         try:
@@ -225,6 +224,15 @@ class UserPage():
         row = self.cmf.find_row_by_name(account, "fortUserAccount")
         update_xpath = "//table[@id='content_table']/tbody/tr[" + str(row) + "]/td[9]/input[" + index + "]"
         self.getElem.find_element_with_wait_clickable_and_click('xpath',update_xpath)
+    
+    u'''删除指定的用户
+        parameters:
+            account:用户账号
+    '''
+    def del_specified_user(self,account):
+        row = self.cmf.find_row_by_name(account, "fortUserAccount")
+        update_xpath = "//table[@id='content_table']/tbody/tr[" + str(row) + "]/td[1]/span[1]/input[1]"
+        self.getElem.find_element_with_wait_clickable_and_click('xpath',update_xpath)     
 
     u'''点击用户操作列对应的编辑按钮
         parameters:
@@ -395,6 +403,7 @@ class UserPage():
                 elemid = elem.get_attribute("id")
     
                 if deptname == elemtext:
+                    time.sleep(1)
                     self.getElem.find_element_wait_and_click_EC('id',elemid)
                     break
     

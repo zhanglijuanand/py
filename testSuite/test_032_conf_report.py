@@ -14,7 +14,7 @@ from common_suite_file import CommonSuiteData,setDriver
 
 import unittest
 
-class testClientSuite(unittest.TestCase):
+class testConfReportSuite(unittest.TestCase):
     def setUp(self):
         #定义驱动
         self.browser = setDriver().set_driver()

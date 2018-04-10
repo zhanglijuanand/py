@@ -188,7 +188,7 @@ class testSso():
 	def domain_sso_login_006(self):
 		#日志开始记录
 		self.log.log_start("DomainssoLogin")
-		self.commSuite.sso_user_ad_login(6)
+		self.commSuite.sso_user_ad_login(42)
 		sso_data = self.get_table_data("domain_sso")
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -220,13 +220,15 @@ class testSso():
 			except Exception as e:
 				print ("yunei SSO login fail: ") + str(e)
 		#self.commSuite.user_quit()
-		self.log.log_end("yuneissoLogin")	
+		self.log.log_end("yuneissoLogin")
 	
 	
 #if __name__ == "__main__":
 #	browser = setDriver().set_local_driver()
 #
 #	commonSuite = CommonSuiteData(browser)
+	#commonSuite.sso_prefix_condition()
+	#commonSuite.sso_post_condition()
 #	#commonSuite.login_and_switch_to_common()
 #	
 #	ssoTest = testSso(browser)

@@ -10,6 +10,7 @@
 #修改内容：
 '''
 import sys,time
+import  SendKeys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 sys.path.append("/testIsomp/common/")
@@ -440,13 +441,27 @@ class CommandRule(object):
 
 	u'''命令审批单点登录'''
 	def sso_command(self, data):
-		time.sleep(5)
+		time.sleep(2)
 		self.frameElem.from_frame_to_otherFrame("rigthFrame")
 		self.ssoElem.select_account(data[2],data[3])
-		self.ssoElem.select_sso_icon(data[2],data[4])
+		self.click_sso_icon(data[2])
+		if data[4] != "":
+			self.ssoElem.select_protocol(data[4])
 		time.sleep(5)
-		if data[5] != "":
-			self.ssoElem.select_protocol(data[5])
+		SendKeys.SendKeys(str(data[5]))
+		SendKeys.SendKeys('\n', with_newlines=True)
 		time.sleep(2)
-		self.choice_browser_open(data[4],data[6],data[7],data[8])
+
+	u'''点击单点登录图标
+		parameters :
+			rename : 资源名称
+	'''
+	def click_sso_icon(self, rename):
+		self.frameElem.from_frame_to_otherFrame("rigthFrame")
+		rname = self.cnEn.is_float(rename)
+		row = self.acproval.select_resoure_sso(rname)
+		xpath = "/html/body/div[1]/div[7]/div[2]/div/table/tbody/tr[" + str(
+			row * 2) + "]/td/div/table/tbody/tr/td[2]/a/img"
+		time.sleep(2)
+		self.getElem.find_element_wait_and_click_EC("xpath", xpath)
 		time.sleep(2)

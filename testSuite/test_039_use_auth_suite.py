@@ -45,15 +45,19 @@ class UseAuthSuite(unittest.TestCase):
     def test_use_auth(self):
         #填写产品信息
         self.useAuthCase.add_product_information_001()
-        #上传logo和升级包
+        #上传logo
         self.useAuthCase.upload_logo_upgrade_002()
         #产品信息校验
         self.useAuthCase.check_product_information_003()
-        #logo和升级包校验
+        #logo包校验
         self.useAuthCase.check_logo_upgrade_004()
-
+        #上传授权码
+        self.useAuthCase.add_product_information_005()
+        #上传授权码校验
+        self.useAuthCase.check_updata_auth_006()
+        
     def tearDown(self):
-        self.commonSuite.alarm_strategy_module_post_condition()
+        self.commonSuite.use_auth_module_post_condition()
         self.initDriver.close_driver(self.browser)
 
 

@@ -36,7 +36,7 @@ class testLinuxResourceSuite(unittest.TestCase):
 		self.account = testResourceAccount(self.browser)
 
 		#资源前置条件
-		self.comsuit.resource_module_prefix_condition()
+		self.comsuit.linuxre_module_prefix_condition()
 
 	def test_linux_resource(self):
 		#------------------------------linux资源-----------------------------------
@@ -60,13 +60,10 @@ class testLinuxResourceSuite(unittest.TestCase):
 		self.linuxresource.query_resource_004(_testDataPath.LINUX_RESOURCE_TEST_DATA_URL, "query_linux_resource")
 		#删除linux资源
 		self.linuxresource.del_resource_005(_testDataPath.LINUX_RESOURCE_TEST_DATA_URL, "del_linux_resource")
-		#全选删除资源
-		self.linuxresource.bulkdel_resource_006()
 
 	def tearDown(self):
-		#资源后置条件
-		self.comsuit.resource_module_post_condition()
 
+		self.comsuit.linuxre_module_post_condition()
 		initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":

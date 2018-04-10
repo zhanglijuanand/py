@@ -49,9 +49,7 @@ class testDepartSuite(unittest.TestCase):
 		self.testdptment.del_department_005()
 
 	def tearDown(self):
-		#部门后置条件
-		self.comsuit.depart_module_post_condition()
-
+		self.comsuit.user_quit()
 		initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":

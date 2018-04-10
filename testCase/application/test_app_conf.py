@@ -127,7 +127,7 @@ class testApp():
 				print ("Edit client fail: ") + str(e)
 		self.log.log_end("EditClient")
 	
-	u'''校验客户端'''
+	u'''校验应用发布'''
 	def check_app_003(self):	
 		#日志开始记录
 		self.log.log_start("CheckClient_003")
@@ -135,7 +135,6 @@ class testApp():
 		#校验应用发布
 		client_data = self.get_table_data("check_app")
 		self.appElem.app_module_button()
-		self.appElem.click_add_button()
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
 		for dataRow in range(len(client_data)):
@@ -144,24 +143,29 @@ class testApp():
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0 :
 					self.frameElem.from_frame_to_otherFrame("rigthFrame")
+					self.appElem.click_add_button()
 					self.appElem.set_name(data[2])
 					self.appElem.set_ip(data[3])
 					self.appElem.set_port(data[4])
 					self.appElem.set_app_account(data[5])
 					self.appElem.set_pwd(data[6])
 					self.appElem.set_repwd(data[7])
+					# if data[3] != "":
+					# 	time.sleep(2)
+					self.appElem.ip_is_succ()
 					if data[3] =="":
 						self.cmf.click_login_msg_button()
 					self.appElem.click_save_button()
 					#判断测试项是否通过
 					self.check_with_pop_up(data,flag)
+					self.appElem.click_back_button()
 					
 					#清空标识状态
 					flag = False
 	
 			except Exception as e:
 				print ("Check client fail: ") + str(e)
-		self.appElem.click_back_button()
+
 		self.appElem.is_pop_up()
 		self.log.log_end("CheckClient")
 	
@@ -194,7 +198,7 @@ class testApp():
 	u'''删除应用发布'''
 	def del_app_005(self):	
 		#日志开始记录
-		self.log.log_start("DelClient_004")
+		self.log.log_start("DelClient_005")
 		#获取删除应用发布的数据
 		client_data = self.get_table_data("del_app")
 		self.appElem.app_module_button()
@@ -221,7 +225,7 @@ class testApp():
 	u'''添加账号'''
 	def add_account_006(self):
 		#日志开始记录
-		self.log.log_start("Addaccount_004")
+		self.log.log_start("Addaccount_006")
 		#获取账号的数据
 		client_data = self.get_table_data("add_account")
 		self.appElem.app_module_button()
@@ -317,12 +321,12 @@ class testApp():
 				print ("Del account fail: ") + str(e)
 		self.log.log_end("Delaccount")
 
-#if __name__ == "__main__":
-#	browser = setDriver().set_local_driver()
-#	commonSuite = CommonSuiteData(browser)
-#	appTest = testApp(browser)
-#	commonSuite.login_and_switch_to_sys()
-#	commonSuite.switch_to_moudle(u"系统配置", u"关联服务")
+if __name__ == "__main__":
+	browser = setDriver().set_local_driver()
+	commonSuite = CommonSuiteData(browser)
+	appTest = testApp(browser)
+	commonSuite.login_and_switch_to_sys()
+	commonSuite.switch_to_moudle(u"系统配置", u"关联服务")
 #	appTest.add_app_001()
 #	appTest.edit_app_002()
 #	appTest.check_app_003()

@@ -73,21 +73,7 @@ class AlarmPage():
     AUTH_MAIL_CHECK = "authAlarmTypeMailCheck"
     #选择邮件接收人添加按钮
     AUTH_EXCEPTIN_RECEIVE_USER = "auth_exception_receive_user"
-    u'''绕行告警'''
-    #默认告警级别
-    IP_ALARM_LEVEL = "IpAlarmLevel"
-    #勾选syslog
-    IP_SYSLOG_CHECK = "ipExceptionSyslogCheck"
-    #勾选邮件
-    IP_MAIL_CHECK = "ipExceptionMailCheck"
-    #填写绕行IP
-    ADD_IP_VALUE = "addIgnoreIpValue"
-    #添加按钮（添加绕行IP）
-    ADD_IGNORE_IP = "addIgnoreIp"
-    #选择邮件接收人添加按钮
-    IP_EXCEPTION_RECEIVE_USER = "ip_exception_receive_user"
-    #来源IP的删除按钮
-    DEL_IP_BUTTON = "s_0626"
+
     u'''告警归纳'''
     #类型检索
     FORT_SYSTEM_ALARM_TYPEID = "fortSystemAlarmTypeId"
@@ -428,64 +414,6 @@ class AlarmPage():
             self.getElem.find_element_with_wait_clickable_and_click('id',self.AUTH_EXCEPTIN_RECEIVE_USER)
         except Exception as e:
             print ("Select the auth mail recipient error: ") + str(e)
-    
-#---------------------------------绕行告警--------------------------------------------------
-    #点击绕行告警模块
-    def ip_default_alarm_menu(self):
-        try:
-            self.frameElem.from_frame_to_otherFrame("rigthFrame")
-            self.getElem.find_element_with_wait_clickable_and_click('link',"绕行告警")
-        except Exception as e:
-            print ("auth alarm menu error: ") + str(e)
-    
-    u'''默认告警级别
-            parameter:
-                ipValue : 告警级别option的value值(5代表等级：5)
-    '''    
-    def ip_alarm_evel(self,ipValue):
-        return self.user.set_common_select_elem(ipValue,self.IP_ALARM_LEVEL)
-    
-    u'''勾选syslog按钮'''
-    def ip_syslog_check(self):
-        try:
-            self.getElem.find_element_with_wait_clickable_and_click('id',self.IP_SYSLOG_CHECK)
-        except Exception as e:
-            print ("Check ip syslog error: ") + str(e)
-            
-    u'''勾选mail按钮'''
-    def ip_mail_check(self):
-        try:
-            self.getElem.find_element_with_wait_clickable_and_click('id',self.IP_MAIL_CHECK)
-        except Exception as e:
-            print ("mail ip mail error: ") + str(e)
-    
-    u'''选择邮件接收人添加按钮'''
-    def ip_exception_receive_user(self):
-        try:
-            self.getElem.find_element_with_wait_clickable_and_click('id',self.IP_EXCEPTION_RECEIVE_USER)
-        except Exception as e:
-            print ("Select the ip mail recipient error: ") + str(e)
-    
-    u'''填写绕行的IP地址
-        parameters:
-            ignoreIp : IP
-    '''     
-    def add_ignore_ip_value(self,ignoreIp):
-        return self.set_common_func(ignoreIp,self.ADD_IP_VALUE)
-    
-    u'''绕行ip添加按钮'''
-    def add_ignore_ip(self):
-        try:
-            self.getElem.find_element_with_wait_clickable_and_click('id',self.ADD_IGNORE_IP)
-        except Exception as e:
-            print ("Add a detour IP error: ") + str(e)
-    
-    u'''删除已添加的来源IP'''
-    def del_ip_select(self):
-        try:
-            self.getElem.find_element_with_wait_clickable_and_click('classname',self.DEL_IP_BUTTON)
-        except Exception as e:
-            print ("del ip error: ") + str(e)
     
 #---------------------------------告警归纳--------------------------------------------------
     u'''点击检索按钮'''

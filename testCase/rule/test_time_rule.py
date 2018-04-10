@@ -182,7 +182,7 @@ class testTime(object):
 					self.timerule.date_of_termination(data[6], data[7])
 				elif dataRow == 7:
 					self.timerule.start_date(data[4])
-				elif dataRow == 8:
+				elif dataRow == 8 or dataRow == 9:
 					self.timerule.set_time(data[8], data[9], data[10])
 				if dataRow != 0:
 					self.timerule.click_save_time()
@@ -234,12 +234,8 @@ class testTime(object):
 						self.timerule.click_bulkdel_time()
 						self.cmf.click_login_msg_button()
 						self.log.log_detail(data[0],True)
-					if dataRow == 2:
+					else:
 						self.timerule.click_del_time(data[2])
-					elif dataRow == 3:
-						self.command.check_all()
-						self.timerule.click_bulkdel_time()
-					if dataRow != 1:
 						self.frameElem.switch_to_content()
 						self.cmf.test_win_check_point("xpath", comrulMsg, data, flag)
 						self.cmf.click_login_msg_button()

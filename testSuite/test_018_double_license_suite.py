@@ -21,7 +21,7 @@ from common_suite_file import setDriver,CommonSuiteData
 sys.path.append("/testIsomp/testCase/process/")
 from test_double_license import testDobapproval
 
-class testAccapprovalSuite(unittest.TestCase):
+class testDoubleSuite(unittest.TestCase):
 
 	def setUp(self):
 		#调用驱动
@@ -31,8 +31,8 @@ class testAccapprovalSuite(unittest.TestCase):
 		self.cmf = commonFun(self.browser)
 		self.double = testDobapproval(self.browser)
 
-		#流程前置条件
-		self.comsuit.process_module_prefix_condition()
+		#双人授权前置条件
+		self.comsuit.dualmandate_module_prefix_condition()
 
 	def test_double_approval(self):
 		# 添加双人授权
@@ -57,8 +57,8 @@ class testAccapprovalSuite(unittest.TestCase):
 		self.double.double_query_department_history_010()
 
 	def tearDown(self):
-		#流程后置条件
-		self.comsuit.process_module_post_condition()
+		#双人授权后置条件
+		self.comsuit.dualmandate_module_post_condition()
 		initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":

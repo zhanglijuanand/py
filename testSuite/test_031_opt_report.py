@@ -14,13 +14,13 @@ from common_suite_file import CommonSuiteData,setDriver
 
 import unittest
 
-class testClientSuite(unittest.TestCase):
+class testOptReportSuite(unittest.TestCase):
     def setUp(self):
         #定义驱动
         self.browser = setDriver().set_driver()
         self.commonSuite = CommonSuiteData(self.browser)        
         self.reportMethod = testOptReport(self.browser)
-        #配置报表前置条件
+        #行为报表前置条件
         self.commonSuite.opt_report_module_prefix_condition()
     
     def test_client_method(self):
@@ -34,7 +34,7 @@ class testClientSuite(unittest.TestCase):
         self.reportMethod.opt_report_del_004()
 
     def tearDown(self):
-        #配置报表后置条件
+        #行为报表后置条件
         self.commonSuite.opt_report_module_post_condition()
         initDriver().close_driver(self.browser)
 

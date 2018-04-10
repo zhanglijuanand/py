@@ -73,6 +73,7 @@ class ConfReportPage():
     u'''设置表单名称'''
     def set_module_name(self,moduleName):
         self.frameElem.from_frame_to_otherFrame("rigthFrame")
+        time.sleep(1)
         return self.set_common_func(moduleName,"id",self.MODULE_NAME)
     
     u'''填写用户账号'''
@@ -152,5 +153,6 @@ class ConfReportPage():
     u'''切换至配置报表'''
     def switch_to_conf_report(self):
         self.frameElem.from_frame_to_otherFrame("leftFrame")
+        time.sleep(1)
         self.getElem.find_element_with_wait_clickable_and_click("id","url0")
             
